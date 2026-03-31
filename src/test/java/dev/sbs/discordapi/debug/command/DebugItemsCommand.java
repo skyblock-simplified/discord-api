@@ -9,9 +9,9 @@ import dev.sbs.discordapi.context.command.SlashCommandContext;
 import dev.sbs.discordapi.exception.DiscordException;
 import dev.sbs.discordapi.response.Response;
 import dev.sbs.discordapi.response.handler.Filter;
-import dev.sbs.discordapi.response.handler.item.ItemHandler;
 import dev.sbs.discordapi.response.handler.Search;
 import dev.sbs.discordapi.response.handler.Sorter;
+import dev.sbs.discordapi.response.handler.item.ItemHandler;
 import dev.sbs.discordapi.response.page.Page;
 import dev.sbs.discordapi.response.page.item.FooterItem;
 import dev.sbs.discordapi.response.page.item.field.StringItem;
@@ -66,21 +66,18 @@ public class DebugItemsCommand extends DiscordCommand<SlashCommandContext> {
                                     .isInline()
                                     .build()
                                 )
-                                // TODO: Select menu filtering, one menu per Filter
                                 .withFilters(
                                     Filter.<Test>builder()
                                         .withLabel("Under 100")
                                         .withTriPredicates((test, index, size) -> test.getIndex() < 100)
                                         .build()
                                 )
-                                // TODO: Select menu sorting, one menu per Sorter
                                 .withSorters(
                                     Sorter.<Test>builder()
                                         .withComparators(Comparator.comparingInt(Test::getIndex))
                                         .withLabel("Index")
                                         .build()
                                 )
-                                // TODO: Move title/description to Search, one menu per Search (already)
                                 .withSearch(
                                     Search.<Test>builder()
                                         .withPlaceholder("Input name.")
