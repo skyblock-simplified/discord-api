@@ -158,14 +158,8 @@ listener/lifecycle/       — DisconnectListener, GuildCreateListener
 - **`FilterHandler`** / **`SortHandler`** / **`SearchHandler`** — item filtering, sorting, and search state
 - **`Filter`** / **`Sorter`** / **`Search`** — builder-pattern definitions for filter/sort/search criteria
 
-## Key Patterns
+## Module-Specific Patterns
 
-- **Lombok** used extensively: `@Getter`, `@RequiredArgsConstructor`, `@Log4j2`, `@Builder`, etc. Logger field is non-static (`lombok.log.fieldIsStatic = false` in root `lombok.config`).
-- **`@NotNull`/`@Nullable`** from JetBrains on all method parameters and return types.
-- **Reactive** — all command/listener handlers return `Mono<Void>` using Project Reactor.
 - **`DiscordReference`** — base class for anything needing bot access; provides `getDiscordBot()`, `getEmoji()`, `isDeveloper()`, permission helpers.
-- **Builder pattern everywhere** — `Response.builder()`, `Page.builder()`, `Button.builder()`, `Embed.builder()`, `DiscordConfig.builder()`, all using `ClassBuilder<T>` with `@BuildFlag` validation.
-- **`Concurrent.*` collections** — thread-safe `ConcurrentList`, `ConcurrentMap`, `ConcurrentSet` from the `api` module used instead of standard Java collections.
-- **Mutate pattern** — immutable objects provide `mutate()` returning a pre-filled builder for modification (e.g., `response.mutate().isEphemeral().build()`).
 - **`Component.Type`** enum maps to Discord's integer component type IDs and tracks which types require the Components V2 flag.
 - **`api` dependency** — declared as a Maven coordinate (`dev.sbs:api:0.1.0`) in `build.gradle.kts`.
