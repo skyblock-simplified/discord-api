@@ -13,6 +13,7 @@
       "mcp__IntelliJ_IDE__get_project_modules",
       "mcp__IntelliJ_IDE__get_symbol_info",
       "mcp__IntelliJ_IDE__list_directory_tree",
+      "mcp__IntelliJ_IDE__read_file",
       "mcp__IntelliJ_IDE__rename_refactoring",
       "mcp__IntelliJ_IDE__replace_text_in_file",
       "mcp__IntelliJ_IDE__search_symbol"
