@@ -1,11 +1,10 @@
 package dev.sbs.discordapi.component.media;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.layout.Container;
 import dev.sbs.discordapi.component.scope.ContainerComponent;
 import dev.sbs.discordapi.component.scope.TopLevelMessageComponent;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -71,7 +70,7 @@ public class MediaGallery implements TopLevelMessageComponent, ContainerComponen
      * A builder for constructing {@link MediaGallery} instances.
      */
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<MediaGallery> {
+    public static class Builder {
 
         private @NotNull ConcurrentList<Thumbnail> items = Concurrent.newList();
 

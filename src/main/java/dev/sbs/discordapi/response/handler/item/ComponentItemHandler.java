@@ -1,15 +1,5 @@
 package dev.sbs.discordapi.response.handler.item;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
-import dev.sbs.api.function.TriFunction;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.tuple.pair.Pair;
-import dev.sbs.api.tuple.triple.Triple;
-import dev.sbs.api.util.NumberUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.layout.Container;
 import dev.sbs.discordapi.component.layout.Section;
 import dev.sbs.discordapi.component.scope.ContainerComponent;
@@ -19,6 +9,15 @@ import dev.sbs.discordapi.response.handler.Search;
 import dev.sbs.discordapi.response.handler.SearchHandler;
 import dev.sbs.discordapi.response.handler.SortHandler;
 import dev.sbs.discordapi.response.handler.Sorter;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.ConcurrentMap;
+import dev.simplified.collection.function.TriFunction;
+import dev.simplified.collection.tuple.pair.Pair;
+import dev.simplified.collection.tuple.triple.Triple;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.NumberUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -340,7 +339,7 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
         this.getSearchHandler().setCacheUpdateRequired(cacheUpdateRequired);
     }
 
-    public static class Builder<T> implements ClassBuilder<ComponentItemHandler<T>> {
+    public static class Builder<T> {
 
         private final ConcurrentList<T> items = Concurrent.newList();
         private final ConcurrentList<ContainerComponent> staticItems = Concurrent.newList();
@@ -464,7 +463,6 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
             return this;
         }
 
-        @Override
         public @NotNull ComponentItemHandler<T> build() {
             Reflection.validateFlags(this);
             this.variables.put("SIZE", this.items.size());

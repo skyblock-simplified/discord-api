@@ -1,7 +1,7 @@
 package dev.sbs.discordapi.command.exception;
 
-import dev.sbs.api.collection.concurrent.ConcurrentSet;
 import dev.sbs.discordapi.context.scope.CommandContext;
+import dev.simplified.collection.ConcurrentSet;
 import discord4j.rest.util.Permission;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;

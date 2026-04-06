@@ -1,6 +1,5 @@
 package dev.sbs.discordapi.listener.component;
 
-import dev.sbs.api.reflection.Reflection;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.component.capability.EventInteractable;
 import dev.sbs.discordapi.component.capability.UserInteractable;
@@ -10,6 +9,7 @@ import dev.sbs.discordapi.handler.response.CachedResponse;
 import dev.sbs.discordapi.handler.response.ResponseFollowup;
 import dev.sbs.discordapi.listener.DiscordListener;
 import dev.sbs.discordapi.response.Response;
+import dev.simplified.reflection.Reflection;
 import discord4j.core.event.domain.interaction.ComponentInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 import org.reactivestreams.Publisher;

@@ -1,20 +1,19 @@
 package dev.sbs.discordapi.command.parameter;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
-import dev.sbs.api.collection.concurrent.ConcurrentSet;
-import dev.sbs.api.collection.concurrent.linked.ConcurrentLinkedMap;
-import dev.sbs.api.math.Range;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.NumberUtil;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.command.DiscordCommand;
 import dev.sbs.discordapi.context.command.AutoCompleteContext;
 import dev.sbs.discordapi.context.scope.CommandContext;
 import dev.sbs.discordapi.exception.DiscordException;
 import dev.sbs.discordapi.response.Emoji;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentMap;
+import dev.simplified.collection.ConcurrentSet;
+import dev.simplified.collection.linked.ConcurrentLinkedMap;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.NumberUtil;
+import dev.simplified.util.Range;
+import dev.simplified.util.StringUtil;
 import discord4j.core.object.command.ApplicationCommandOption;
 import discord4j.core.object.entity.Attachment;
 import discord4j.core.object.entity.Role;
@@ -395,7 +394,7 @@ public final class Parameter {
      * at build time via {@link BuildFlag} validation.
      */
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static final class Builder implements ClassBuilder<Parameter> {
+    public static final class Builder {
 
         private final UUID uniqueId;
         @BuildFlag(nonNull = true, notEmpty = true)
@@ -641,7 +640,6 @@ public final class Parameter {
          * @return the constructed parameter
          * @throws DiscordException if channel types are specified for a non-channel parameter
          */
-        @Override
         public @NotNull Parameter build() {
             Reflection.validateFlags(this);
 

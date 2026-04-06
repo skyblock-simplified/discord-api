@@ -1,6 +1,6 @@
 package dev.sbs.discordapi.util;
 
-import dev.sbs.api.util.time.SimpleDate;
+import dev.simplified.util.time.SimpleDate;
 import discord4j.common.util.Snowflake;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;

@@ -1,14 +1,13 @@
 package dev.sbs.discordapi.component.interaction;
 
-import dev.sbs.api.util.NumberUtil;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.scope.ActionComponent;
 import dev.sbs.discordapi.component.scope.LabelComponent;
 import dev.sbs.discordapi.context.component.ModalContext;
 import dev.sbs.discordapi.response.handler.item.ItemHandler;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.NumberUtil;
+import dev.simplified.util.StringUtil;
 import discord4j.discordjson.json.ComponentData;
 import discord4j.discordjson.possible.Possible;
 import lombok.AccessLevel;
@@ -170,7 +169,7 @@ public final class TextInput implements ActionComponent, LabelComponent {
      * A builder for constructing {@link TextInput} instances.
      */
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static final class Builder implements ClassBuilder<TextInput> {
+    public static final class Builder {
 
         @BuildFlag(nonNull = true, notEmpty = true)
         private String identifier;
@@ -350,7 +349,6 @@ public final class TextInput implements ActionComponent, LabelComponent {
          *
          * @return a new {@link TextInput} instance
          */
-        @Override
         public @NotNull TextInput build() {
             return new TextInput(
                 this.identifier,

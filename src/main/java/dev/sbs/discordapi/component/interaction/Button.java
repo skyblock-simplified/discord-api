@@ -1,9 +1,5 @@
 package dev.sbs.discordapi.component.interaction;
 
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.capability.EventInteractable;
 import dev.sbs.discordapi.component.capability.Toggleable;
 import dev.sbs.discordapi.component.layout.ActionRow;
@@ -13,6 +9,9 @@ import dev.sbs.discordapi.context.component.ButtonContext;
 import dev.sbs.discordapi.context.scope.ComponentContext;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.handler.PaginationHandler;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -167,7 +166,7 @@ public final class Button implements ActionComponent, AccessoryComponent, EventI
      * A builder for constructing {@link Button} instances.
      */
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static final class Builder implements ClassBuilder<Button> {
+    public static final class Builder {
 
         @BuildFlag(nonNull = true)
         private String identifier;
@@ -376,7 +375,6 @@ public final class Button implements ActionComponent, AccessoryComponent, EventI
          *
          * @return a new {@link Button} instance
          */
-        @Override
         public @NotNull Button build() {
             Reflection.validateFlags(this);
 

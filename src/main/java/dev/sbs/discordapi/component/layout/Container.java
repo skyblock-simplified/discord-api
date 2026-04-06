@@ -1,12 +1,11 @@
 package dev.sbs.discordapi.component.layout;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.scope.ContainerComponent;
 import dev.sbs.discordapi.component.scope.LayoutComponent;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
 import discord4j.core.object.component.ICanBeUsedInContainerComponent;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -116,7 +115,7 @@ public final class Container implements LayoutComponent {
 
     /** A builder for constructing {@link Container} instances. */
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<Container> {
+    public static class Builder {
 
         private Optional<Color> accent = Optional.empty();
         @BuildFlag(notEmpty = true)
@@ -190,7 +189,6 @@ public final class Container implements LayoutComponent {
          *
          * @return a new container
          */
-        @Override
         public @NotNull Container build() {
             Reflection.validateFlags(this);
 

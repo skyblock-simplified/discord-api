@@ -1,6 +1,5 @@
 [versions]
 lombok = "1.18.36"
-simplified-annotations = "1.0.4"
 junit-jupiter = "5.11.4"
 hamcrest = "2.2"
 discord4j = "3.3.1"
@@ -8,7 +7,6 @@ sentry = "8.34.1"
 
 [libraries]
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
-simplified-annotations = { group = "dev.sbs", name = "simplified-annotations", version.ref = "simplified-annotations" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit-jupiter" }
 junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit-jupiter" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }

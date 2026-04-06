@@ -1,8 +1,8 @@
 package dev.sbs.discordapi.response;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.util.ProgressBar;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

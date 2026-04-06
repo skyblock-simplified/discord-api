@@ -1,6 +1,5 @@
 package dev.sbs.discordapi.listener.lifecycle;
 
-import dev.sbs.api.SimplifiedApi;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.listener.DiscordListener;
 import discord4j.core.event.domain.lifecycle.DisconnectEvent;
@@ -9,8 +8,8 @@ import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
 /**
- * Listener for gateway disconnect events, shutting down the {@link SimplifiedApi}
- * session manager and the bot's scheduler on disconnection.
+ * Listener for gateway disconnect events, invoking the bot's disconnect
+ * hook and shutting down the scheduler on disconnection.
  */
 public class DisconnectListener extends DiscordListener<DisconnectEvent> {
 
@@ -26,7 +25,7 @@ public class DisconnectListener extends DiscordListener<DisconnectEvent> {
     @Override
     public Publisher<Void> apply(@NotNull DisconnectEvent event) {
         return Mono.fromRunnable(() -> {
-            SimplifiedApi.getSessionManager().shutdown();
+            this.getDiscordBot().onGatewayDisconnect();
             this.getDiscordBot().getScheduler().shutdown();
         });
     }

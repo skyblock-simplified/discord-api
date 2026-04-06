@@ -1,11 +1,5 @@
 package dev.sbs.discordapi.handler.exception;
 
-import dev.sbs.api.client.exception.ApiException;
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentSet;
-import dev.sbs.api.collection.concurrent.linked.ConcurrentLinkedMap;
-import dev.sbs.api.tuple.pair.Pair;
-import dev.sbs.api.util.StringUtil;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.command.exception.BotPermissionException;
 import dev.sbs.discordapi.command.exception.DisabledCommandException;
@@ -25,6 +19,12 @@ import dev.sbs.discordapi.response.embed.Embed;
 import dev.sbs.discordapi.response.embed.Field;
 import dev.sbs.discordapi.response.embed.Footer;
 import dev.sbs.discordapi.response.page.TreePage;
+import dev.simplified.client.exception.ApiException;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentSet;
+import dev.simplified.collection.linked.ConcurrentLinkedMap;
+import dev.simplified.collection.tuple.pair.Pair;
+import dev.simplified.util.StringUtil;
 import discord4j.common.util.Snowflake;
 import discord4j.core.object.entity.Guild;
 import discord4j.core.object.entity.channel.GuildChannel;

@@ -1,12 +1,5 @@
 package dev.sbs.discordapi.response.embed;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.ExceptionUtil;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.TextDisplay;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
 import dev.sbs.discordapi.component.layout.Container;
@@ -21,6 +14,12 @@ import dev.sbs.discordapi.response.page.item.Item;
 import dev.sbs.discordapi.response.page.item.ThumbnailUrlItem;
 import dev.sbs.discordapi.response.page.item.TitleItem;
 import dev.sbs.discordapi.response.page.item.field.FieldItem;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.ExceptionUtil;
+import dev.simplified.util.StringUtil;
 import discord4j.core.spec.EmbedCreateSpec;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -204,7 +203,7 @@ public final class Embed {
     }
 
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<Embed> {
+    public static class Builder {
 
         @BuildFlag(limit = 256)
         private Optional<String> title = Optional.empty();
@@ -557,7 +556,6 @@ public final class Embed {
          *
          * @return A built {@link SelectMenu} component.
          */
-        @Override
         public @NotNull Embed build() {
             Reflection.validateFlags(this);
 

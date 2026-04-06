@@ -1,6 +1,5 @@
 package dev.sbs.discordapi;
 
-import dev.sbs.api.SimplifiedApi;
 import dev.sbs.discordapi.command.DiscordCommand;
 import dev.sbs.discordapi.command.Structure;
 import dev.sbs.discordapi.command.parameter.Argument;
@@ -45,7 +44,6 @@ import dev.sbs.discordapi.response.page.FormPage;
 import dev.sbs.discordapi.response.page.Page;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
-import dev.simplified.persistence.JpaSession;
 import dev.simplified.reflection.Reflection;
 import dev.simplified.scheduler.Scheduler;
 import dev.simplified.util.Logging;
@@ -158,7 +156,6 @@ public abstract class DiscordBot {
      *   <li>Handles the {@link ConnectEvent} to initialize additional components and perform post-connection setup:
      *     <ul>
      *       <li>Calls the {@code onGatewayConnected} method upon a successful connection.</li>
-     *       <li>If a database configuration is present, establishes a database session and calls {@code onDatabaseConnected}.</li>
      *       <li>Schedules a periodic task to clean up inactive cached responses and update message states.</li>
      *       <li>Registers event listeners dynamically by scanning resources and loading implementations of
      *           {@code DiscordListener} or user-defined listeners from the configuration.</li>
@@ -188,20 +185,6 @@ public abstract class DiscordBot {
                 .flatMap(gatewayDiscordClient -> {
                     log.info("Gateway Connected");
                     this.onGatewayConnected(gatewayDiscordClient);
-
-                    this.getConfig()
-                        .getJpaConfig()
-                        .ifPresent(jpaConfig -> {
-                            log.info("Creating Database Session");
-                            JpaSession session = SimplifiedApi.getSessionManager().connect(jpaConfig);
-
-                            log.info(
-                                "Database Connected. (Initialized in {}ms, Started in {}ms)",
-                                session.getInitialization().getDurationMillis(),
-                                session.getRepositoryCache().getDurationMillis()
-                            );
-                            this.onDatabaseConnected();
-                        });
 
                     log.info("Scheduling Cache Cleaner");
                     this.scheduler.scheduleAsync(() -> this.responseHandler.matchAll(CachedResponse::notActive).forEach(entry -> {
@@ -381,8 +364,6 @@ public abstract class DiscordBot {
      *     <li>On the initial {@link ConnectEvent}:
      *     <ul>
      *         <li>Invokes the {@link #onGatewayConnected(GatewayDiscordClient)} hook.</li>
-     *         <li>If a JPA configuration is present, establishes a database session and invokes the
-     *             {@link #onDatabaseConnected()} hook.</li>
      *         <li>Schedules a periodic cache cleaner that removes inactive {@link CachedResponse} entries.</li>
      *         <li>Discovers and registers all {@link DiscordListener} implementations.</li>
      *         <li>Syncs custom emojis via the {@link EmojiHandler}.</li>
@@ -404,9 +385,9 @@ public abstract class DiscordBot {
     @SuppressWarnings("unused")
     protected void onClientCreated(@NotNull DiscordClient discordClient) { }
 
-    protected void onDatabaseConnected() { }
-
     @SuppressWarnings("unused")
     protected void onGatewayConnected(@NotNull GatewayDiscordClient gatewayDiscordClient) { }
+
+    protected void onGatewayDisconnect() { }
 
 }

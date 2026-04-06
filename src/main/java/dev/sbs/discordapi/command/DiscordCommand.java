@@ -1,9 +1,5 @@
 package dev.sbs.discordapi.command;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.unmodifiable.ConcurrentUnmodifiableList;
-import dev.sbs.api.reflection.Reflection;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.command.exception.BotPermissionException;
 import dev.sbs.discordapi.command.exception.CommandException;
@@ -20,6 +16,10 @@ import dev.sbs.discordapi.context.command.UserCommandContext;
 import dev.sbs.discordapi.context.scope.CommandContext;
 import dev.sbs.discordapi.exception.DiscordException;
 import dev.sbs.discordapi.util.DiscordReference;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.unmodifiable.ConcurrentUnmodifiableList;
+import dev.simplified.reflection.Reflection;
 import discord4j.core.object.entity.channel.GuildChannel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

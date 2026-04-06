@@ -1,11 +1,5 @@
 package dev.sbs.discordapi.component.interaction;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.capability.EventInteractable;
 import dev.sbs.discordapi.component.capability.Toggleable;
@@ -13,6 +7,11 @@ import dev.sbs.discordapi.component.layout.Label;
 import dev.sbs.discordapi.component.scope.ActionComponent;
 import dev.sbs.discordapi.component.scope.LabelComponent;
 import dev.sbs.discordapi.context.component.RadioGroupContext;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import discord4j.core.object.component.RadioGroupAction;
 import discord4j.discordjson.json.ComponentData;
 import lombok.AccessLevel;
@@ -207,7 +206,7 @@ public final class RadioGroup implements ActionComponent, EventInteractable<Radi
      * A builder for constructing {@link RadioGroup} instances.
      */
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<RadioGroup> {
+    public static class Builder {
 
         @BuildFlag(nonNull = true)
         private String identifier;
@@ -349,7 +348,6 @@ public final class RadioGroup implements ActionComponent, EventInteractable<Radi
          *
          * @return a new {@link RadioGroup} instance
          */
-        @Override
         public @NotNull RadioGroup build() {
             Reflection.validateFlags(this);
 
@@ -457,7 +455,7 @@ public final class RadioGroup implements ActionComponent, EventInteractable<Radi
          * A builder for constructing {@link Option} instances.
          */
         @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-        public static final class Builder implements ClassBuilder<Option> {
+        public static final class Builder {
 
             private final UUID uniqueId;
             private Optional<String> label = Optional.empty();
@@ -540,7 +538,6 @@ public final class RadioGroup implements ActionComponent, EventInteractable<Radi
              *
              * @return a new {@link Option} instance
              */
-            @Override
             public @NotNull Option build() {
                 return new Option(
                     this.uniqueId,

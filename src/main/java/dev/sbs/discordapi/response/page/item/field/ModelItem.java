@@ -1,17 +1,15 @@
 package dev.sbs.discordapi.response.page.item.field;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
-import dev.sbs.api.persistence.JpaModel;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.embed.Field;
 import dev.sbs.discordapi.response.page.item.Item;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.ConcurrentMap;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +24,7 @@ import java.util.function.Function;
 
 @Getter
 @RequiredArgsConstructor
-public final class ModelItem<T extends JpaModel> implements FieldItem<T> {
+public final class ModelItem<T> implements FieldItem<T> {
 
     private final @NotNull SelectMenu.Option option;
     private final boolean editable;
@@ -42,11 +40,11 @@ public final class ModelItem<T extends JpaModel> implements FieldItem<T> {
         return this;
     }
 
-    public static <T extends JpaModel> @NotNull Builder<T> builder(@NotNull Class<T> modelClass) {
+    public static <T> @NotNull Builder<T> builder(@NotNull Class<T> modelClass) {
         return new Builder<>(modelClass).withIdentifier(UUID.randomUUID().toString());
     }
 
-    public static <T extends JpaModel> @NotNull Builder<T> from(@NotNull ModelItem<T> item) {
+    public static <T> @NotNull Builder<T> from(@NotNull ModelItem<T> item) {
         return builder(item.getModelClass())
             .withOption(item.getOption())
             .isEditable(item.isEditable())
@@ -75,7 +73,7 @@ public final class ModelItem<T extends JpaModel> implements FieldItem<T> {
     }
 
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder<T extends JpaModel> implements ClassBuilder<ModelItem<T>> {
+    public static class Builder<T> {
 
         private final SelectMenu.Option.Builder optionBuilder = SelectMenu.Option.builder();
         private boolean editable;
@@ -297,7 +295,6 @@ public final class ModelItem<T extends JpaModel> implements FieldItem<T> {
             return this;
         }
 
-        @Override
         public @NotNull ModelItem<T> build() {
             Reflection.validateFlags(this);
 

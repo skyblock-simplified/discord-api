@@ -1,10 +1,9 @@
 package dev.sbs.discordapi.component.media;
 
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.layout.Container;
 import dev.sbs.discordapi.component.scope.ContainerComponent;
 import dev.sbs.discordapi.component.scope.TopLevelMessageComponent;
+import dev.simplified.util.StringUtil;
 import discord4j.core.spec.MessageCreateFields;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -165,7 +164,7 @@ public final class Attachment implements TopLevelMessageComponent, ContainerComp
      * a nested {@link MediaData.Builder}.
      */
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<Attachment> {
+    public static class Builder {
 
         private MediaData.Builder mediaData = MediaData.builder();
         private long fileId = 0L;
@@ -290,7 +289,6 @@ public final class Attachment implements TopLevelMessageComponent, ContainerComp
         /**
          * Builds a new {@link Attachment} from the configured fields.
          */
-        @Override
         public @NotNull Attachment build() {
             return new Attachment(
                 this.mediaData.build(),

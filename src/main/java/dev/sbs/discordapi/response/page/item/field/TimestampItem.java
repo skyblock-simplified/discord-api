@@ -1,13 +1,12 @@
 package dev.sbs.discordapi.response.page.item.field;
 
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.ClassBuilder;
-import dev.sbs.api.util.time.SimpleDate;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.embed.Field;
 import dev.sbs.discordapi.response.page.item.Item;
+import dev.simplified.collection.ConcurrentMap;
+import dev.simplified.util.StringUtil;
+import dev.simplified.util.time.SimpleDate;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +56,7 @@ public final class TimestampItem implements FieldItem<Instant> {
     }
 
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<TimestampItem> {
+    public static class Builder {
 
         private final SelectMenu.Option.Builder optionBuilder = SelectMenu.Option.builder();
         private boolean editable;
@@ -225,7 +224,6 @@ public final class TimestampItem implements FieldItem<Instant> {
             return this;
         }
 
-        @Override
         public @NotNull TimestampItem build() {
             return new TimestampItem(
                 this.optionBuilder.build(),

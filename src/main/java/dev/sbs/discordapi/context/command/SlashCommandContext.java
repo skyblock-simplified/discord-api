@@ -1,11 +1,11 @@
 package dev.sbs.discordapi.context.command;
 
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.command.Structure;
 import dev.sbs.discordapi.command.parameter.Argument;
 import dev.sbs.discordapi.command.parameter.Parameter;
 import dev.sbs.discordapi.context.scope.CommandContext;
+import dev.simplified.collection.ConcurrentList;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,10 +1,10 @@
 package dev.sbs.discordapi.handler.response;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
 import dev.sbs.discordapi.component.interaction.Modal;
 import dev.sbs.discordapi.response.Response;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.ConcurrentMap;
 import discord4j.common.util.Snowflake;
 import discord4j.core.object.entity.User;
 import discord4j.discordjson.Id;

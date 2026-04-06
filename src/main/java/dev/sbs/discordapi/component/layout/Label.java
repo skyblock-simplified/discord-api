@@ -1,11 +1,5 @@
 package dev.sbs.discordapi.component.layout;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.interaction.Modal;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
@@ -13,6 +7,11 @@ import dev.sbs.discordapi.component.interaction.TextInput;
 import dev.sbs.discordapi.component.scope.LabelComponent;
 import dev.sbs.discordapi.component.scope.LayoutComponent;
 import dev.sbs.discordapi.component.scope.TopLevelModalComponent;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import discord4j.discordjson.json.ComponentData;
 import discord4j.discordjson.possible.Possible;
 import lombok.AccessLevel;
@@ -143,7 +142,7 @@ public final class Label implements LayoutComponent, TopLevelModalComponent {
 
     /** A builder for constructing {@link Label} instances. */
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<Label> {
+    public static class Builder {
 
         @Range(from = 1, to = 45)
         @BuildFlag(notEmpty = true, limit = 45)
@@ -226,7 +225,6 @@ public final class Label implements LayoutComponent, TopLevelModalComponent {
          *
          * @return a new label
          */
-        @Override
         public @NotNull Label build() {
             Reflection.validateFlags(this);
 

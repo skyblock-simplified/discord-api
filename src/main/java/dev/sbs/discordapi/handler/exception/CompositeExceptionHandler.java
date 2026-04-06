@@ -1,8 +1,8 @@
 package dev.sbs.discordapi.handler.exception;
 
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.context.capability.ExceptionContext;
+import dev.simplified.collection.ConcurrentList;
 import org.jetbrains.annotations.NotNull;
 import reactor.core.publisher.Mono;
 

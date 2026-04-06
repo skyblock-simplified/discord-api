@@ -1,9 +1,9 @@
 package dev.sbs.discordapi.handler.response;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.Response;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
 import discord4j.common.util.Snowflake;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.reaction.Reaction;

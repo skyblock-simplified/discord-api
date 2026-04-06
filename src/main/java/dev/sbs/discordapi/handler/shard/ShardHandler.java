@@ -1,9 +1,9 @@
 package dev.sbs.discordapi.handler.shard;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.util.DiscordReference;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
 import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.Guild;

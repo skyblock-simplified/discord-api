@@ -1,12 +1,11 @@
 package dev.sbs.discordapi.response.page.item.field;
 
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.embed.Field;
 import dev.sbs.discordapi.response.page.item.Item;
+import dev.simplified.collection.ConcurrentMap;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,7 @@ public final class ToggleItem implements FieldItem<Boolean> {
     }
 
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<ToggleItem> {
+    public static class Builder {
 
         private final SelectMenu.Option.Builder optionBuilder = SelectMenu.Option.builder();
         private boolean editable;
@@ -235,7 +234,6 @@ public final class ToggleItem implements FieldItem<Boolean> {
             return this;
         }
 
-        @Override
         public @NotNull ToggleItem build() {
             return new ToggleItem(
                 this.optionBuilder.build(),

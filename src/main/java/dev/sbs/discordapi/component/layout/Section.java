@@ -1,10 +1,5 @@
 package dev.sbs.discordapi.component.layout;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.interaction.Button;
 import dev.sbs.discordapi.component.media.Thumbnail;
@@ -12,6 +7,10 @@ import dev.sbs.discordapi.component.scope.AccessoryComponent;
 import dev.sbs.discordapi.component.scope.ContainerComponent;
 import dev.sbs.discordapi.component.scope.LayoutComponent;
 import dev.sbs.discordapi.component.scope.SectionComponent;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
 import discord4j.core.object.component.ICanBeUsedInSectionComponent;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -131,7 +130,7 @@ public final class Section implements LayoutComponent, ContainerComponent {
 
     /** A builder for constructing {@link Section} instances. */
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<Section> {
+    public static class Builder {
 
         @BuildFlag(notEmpty = true)
         private Optional<AccessoryComponent> accessory = Optional.empty();
@@ -177,7 +176,6 @@ public final class Section implements LayoutComponent, ContainerComponent {
          *
          * @return a new section
          */
-        @Override
         public @NotNull Section build() {
             Reflection.validateFlags(this);
 

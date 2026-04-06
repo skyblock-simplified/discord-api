@@ -1,9 +1,9 @@
 package dev.sbs.discordapi.listener;
 
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.util.DiscordReference;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.util.StringUtil;
 import discord4j.core.event.domain.Event;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;

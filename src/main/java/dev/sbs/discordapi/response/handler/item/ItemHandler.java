@@ -1,12 +1,12 @@
 package dev.sbs.discordapi.response.handler.item;
 
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
 import dev.sbs.discordapi.response.handler.FilterHandler;
 import dev.sbs.discordapi.response.handler.OutputHandler;
 import dev.sbs.discordapi.response.handler.SearchHandler;
 import dev.sbs.discordapi.response.handler.SortHandler;
 import dev.sbs.discordapi.response.page.Paging;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.ConcurrentMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;

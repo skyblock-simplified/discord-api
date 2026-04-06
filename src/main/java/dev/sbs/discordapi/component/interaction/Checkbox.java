@@ -1,8 +1,5 @@
 package dev.sbs.discordapi.component.interaction;
 
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.capability.EventInteractable;
 import dev.sbs.discordapi.component.capability.Toggleable;
@@ -11,6 +8,8 @@ import dev.sbs.discordapi.component.scope.ActionComponent;
 import dev.sbs.discordapi.component.scope.LabelComponent;
 import dev.sbs.discordapi.context.component.CheckboxContext;
 import dev.sbs.discordapi.context.scope.ComponentContext;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
 import discord4j.core.object.component.CheckboxAction;
 import discord4j.discordjson.json.ComponentData;
 import lombok.AccessLevel;
@@ -135,7 +134,7 @@ public final class Checkbox implements ActionComponent, EventInteractable<Checkb
      * A builder for constructing {@link Checkbox} instances.
      */
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static final class Builder implements ClassBuilder<Checkbox> {
+    public static final class Builder {
 
         @BuildFlag(nonNull = true)
         private String identifier;
@@ -238,7 +237,6 @@ public final class Checkbox implements ActionComponent, EventInteractable<Checkb
          *
          * @return a new {@link Checkbox} instance
          */
-        @Override
         public @NotNull Checkbox build() {
             Reflection.validateFlags(this);
 

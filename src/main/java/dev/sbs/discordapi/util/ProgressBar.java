@@ -1,8 +1,8 @@
 package dev.sbs.discordapi.util;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.response.Emoji;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.IntStream;

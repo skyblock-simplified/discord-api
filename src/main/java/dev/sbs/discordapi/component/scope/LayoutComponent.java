@@ -1,12 +1,12 @@
 package dev.sbs.discordapi.component.scope;
 
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.capability.UserInteractable;
 import dev.sbs.discordapi.component.layout.ActionRow;
 import dev.sbs.discordapi.component.layout.Container;
 import dev.sbs.discordapi.component.layout.Label;
 import dev.sbs.discordapi.component.layout.Section;
+import dev.simplified.collection.ConcurrentList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

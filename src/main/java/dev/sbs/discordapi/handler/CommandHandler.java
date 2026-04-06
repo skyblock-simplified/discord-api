@@ -1,14 +1,5 @@
 package dev.sbs.discordapi.handler;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
-import dev.sbs.api.collection.concurrent.ConcurrentSet;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.tuple.pair.Pair;
-import dev.sbs.api.util.StreamUtil;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.command.DiscordCommand;
 import dev.sbs.discordapi.command.Structure;
@@ -18,6 +9,14 @@ import dev.sbs.discordapi.context.command.SlashCommandContext;
 import dev.sbs.discordapi.context.command.UserCommandContext;
 import dev.sbs.discordapi.context.scope.CommandContext;
 import dev.sbs.discordapi.util.DiscordReference;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.ConcurrentMap;
+import dev.simplified.collection.ConcurrentSet;
+import dev.simplified.collection.StreamUtil;
+import dev.simplified.collection.tuple.pair.Pair;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.util.StringUtil;
 import discord4j.core.event.domain.interaction.ApplicationCommandInteractionEvent;
 import discord4j.core.object.command.ApplicationCommand;
 import discord4j.core.object.command.ApplicationCommandOption;
@@ -516,7 +515,7 @@ public final class CommandHandler extends DiscordReference {
      * command classes to validate and register.
      */
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<CommandHandler> {
+    public static class Builder {
 
         private final DiscordBot discordBot;
         private final ConcurrentSet<Class<DiscordCommand>> commands = Concurrent.newSet();
@@ -548,7 +547,6 @@ public final class CommandHandler extends DiscordReference {
          *
          * @return the constructed command handler
          */
-        @Override
         public @NotNull CommandHandler build() {
             return new CommandHandler(
                 this.discordBot,

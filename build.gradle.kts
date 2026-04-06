@@ -19,9 +19,6 @@ repositories {
 }
 
 dependencies {
-    // Simplified Annotations
-    annotationProcessor(libs.simplified.annotations)
-
     // Lombok Annotations
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
@@ -36,7 +33,15 @@ dependencies {
 
     // https://central.sonatype.com/artifact/com.discord4j/discord4j-core/versions
     api(libs.discord4j)
-    api("dev.sbs:api:0.1.0")
+
+    // Simplified Libraries (extracted to github.com/simplified-dev)
+    api("com.github.simplified-dev:collections:master-SNAPSHOT")
+    api("com.github.simplified-dev:utils:master-SNAPSHOT")
+    api("com.github.simplified-dev:reflection:master-SNAPSHOT")
+    api("com.github.simplified-dev:scheduler:master-SNAPSHOT")
+    api("com.github.simplified-dev:yaml:master-SNAPSHOT")
+    api("com.github.simplified-dev:client:master-SNAPSHOT")
+
     implementation(libs.sentry)
 }
 

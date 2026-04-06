@@ -1,12 +1,11 @@
 package dev.sbs.discordapi.response.page;
 
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.TextDisplay;
 import dev.sbs.discordapi.component.layout.Section;
 import dev.sbs.discordapi.response.page.item.field.FieldItem;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -82,7 +81,7 @@ public class Question<T> {
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder<T> implements ClassBuilder<Question<T>> {
+    public static class Builder<T> {
 
         @BuildFlag(nonNull = true)
         private String identifier;
@@ -207,7 +206,6 @@ public class Question<T> {
             return this;
         }
 
-        @Override
         public @NotNull Question<T> build() {
             Reflection.validateFlags(this);
 

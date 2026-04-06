@@ -1,14 +1,13 @@
 package dev.sbs.discordapi.response.page.item.field;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.embed.Field;
 import dev.sbs.discordapi.response.page.item.Item;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.ConcurrentMap;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +59,7 @@ public final class NumberItem<T extends Number> implements FieldItem<T> {
     }
 
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder<T extends Number> implements ClassBuilder<NumberItem<T>> {
+    public static class Builder<T extends Number> {
 
         private final SelectMenu.Option.Builder optionBuilder = SelectMenu.Option.builder();
         private boolean editable;
@@ -250,7 +249,6 @@ public final class NumberItem<T extends Number> implements FieldItem<T> {
             return this;
         }
 
-        @Override
         public @NotNull NumberItem<T> build() {
             return new NumberItem<>(
                 this.optionBuilder.build(),

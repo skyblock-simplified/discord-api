@@ -4,7 +4,6 @@ import dev.sbs.discordapi.command.DiscordCommand;
 import dev.sbs.discordapi.listener.DiscordListener;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentSet;
-import dev.simplified.persistence.JpaConfig;
 import dev.simplified.reflection.Reflection;
 import dev.simplified.reflection.builder.BuildFlag;
 import dev.simplified.reflection.info.ResourceInfo;
@@ -20,7 +19,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import dev.simplified.util.Logging;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -36,7 +34,6 @@ public final class DiscordConfig {
     private final @NotNull Optional<Long> logChannelId;
     @Flag(secure = true)
     private final @NotNull Optional<String> sentryDsn;
-    private final @NotNull Optional<JpaConfig> jpaConfig;
     private final ConcurrentSet<Class<? extends DiscordListener>> listeners;
     private final ConcurrentSet<Class<DiscordCommand>> commands;
     private final ConcurrentSet<ResourceInfo> emojis;
@@ -65,7 +62,6 @@ public final class DiscordConfig {
         private Optional<Long> logChannelId = Optional.empty();
         @Flag(secure = true)
         private Optional<String> sentryDsn = Optional.empty();
-        private Optional<JpaConfig> jpaConfig = Optional.empty();
 
         // Collections
         private ConcurrentSet<Class<? extends DiscordListener>> listeners = Concurrent.newSet();
@@ -122,15 +118,6 @@ public final class DiscordConfig {
 
         public Builder withEmojis(@NotNull Iterable<ResourceInfo> emojis) {
             emojis.forEach(this.emojis::add);
-            return this;
-        }
-
-        public Builder withJpaConfig(@Nullable JpaConfig jpaConfig) {
-            return this.withJpaConfig(Optional.ofNullable(jpaConfig));
-        }
-
-        public Builder withJpaConfig(@NotNull Optional<JpaConfig> jpaConfig) {
-            this.jpaConfig = jpaConfig;
             return this;
         }
 
@@ -217,7 +204,6 @@ public final class DiscordConfig {
                 this.mainGuildId.orElseThrow(),
                 this.logChannelId,
                 this.sentryDsn,
-                this.jpaConfig,
                 this.listeners.toUnmodifiableSet(),
                 this.commands.toUnmodifiableSet(),
                 this.emojis.toUnmodifiableSet(),

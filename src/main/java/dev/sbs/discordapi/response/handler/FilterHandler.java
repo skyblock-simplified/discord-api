@@ -1,6 +1,6 @@
 package dev.sbs.discordapi.response.handler;
 
-import dev.sbs.api.collection.concurrent.ConcurrentList;
+import dev.simplified.collection.ConcurrentList;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

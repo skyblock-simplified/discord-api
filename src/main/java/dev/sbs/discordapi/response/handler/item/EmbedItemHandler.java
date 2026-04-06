@@ -1,17 +1,5 @@
 package dev.sbs.discordapi.response.handler.item;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
-import dev.sbs.api.function.TriFunction;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.tuple.pair.Pair;
-import dev.sbs.api.tuple.triple.Triple;
-import dev.sbs.api.util.NumberUtil;
-import dev.sbs.api.util.StreamUtil;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.response.embed.Embed;
 import dev.sbs.discordapi.response.embed.Field;
 import dev.sbs.discordapi.response.handler.Filter;
@@ -24,6 +12,17 @@ import dev.sbs.discordapi.response.page.Page;
 import dev.sbs.discordapi.response.page.item.Item;
 import dev.sbs.discordapi.response.page.item.field.FieldItem;
 import dev.sbs.discordapi.response.page.item.field.StringItem;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.ConcurrentMap;
+import dev.simplified.collection.StreamUtil;
+import dev.simplified.collection.function.TriFunction;
+import dev.simplified.collection.tuple.pair.Pair;
+import dev.simplified.collection.tuple.triple.Triple;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.NumberUtil;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -287,7 +286,7 @@ public final class EmbedItemHandler<T> implements ItemHandler<T> {
     }
 
     @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class Builder<T> implements ClassBuilder<EmbedItemHandler<T>> {
+    public static class Builder<T> {
 
         private final ConcurrentList<T> items = Concurrent.newList();
         private final ConcurrentList<Item> staticItems = Concurrent.newList();
@@ -523,7 +522,6 @@ public final class EmbedItemHandler<T> implements ItemHandler<T> {
             return this;
         }
 
-        @Override
         public @NotNull EmbedItemHandler<T> build() {
             Reflection.validateFlags(this);
             this.variables.put("SIZE", this.items.size());

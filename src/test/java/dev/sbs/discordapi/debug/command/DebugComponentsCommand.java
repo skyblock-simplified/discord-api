@@ -1,8 +1,5 @@
 package dev.sbs.discordapi.debug.command;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.unmodifiable.ConcurrentUnmodifiableList;
-import dev.sbs.api.tuple.pair.Pair;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.command.DiscordCommand;
 import dev.sbs.discordapi.command.Structure;
@@ -21,6 +18,9 @@ import dev.sbs.discordapi.response.Response;
 import dev.sbs.discordapi.response.embed.Embed;
 import dev.sbs.discordapi.response.embed.Footer;
 import dev.sbs.discordapi.response.page.Page;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.tuple.pair.Pair;
+import dev.simplified.collection.unmodifiable.ConcurrentUnmodifiableList;
 import org.jetbrains.annotations.NotNull;
 import reactor.core.publisher.Mono;
 

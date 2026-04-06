@@ -1,9 +1,5 @@
 package dev.sbs.discordapi.response.page;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
 import dev.sbs.discordapi.component.scope.LayoutComponent;
 import dev.sbs.discordapi.response.Emoji;
@@ -11,6 +7,10 @@ import dev.sbs.discordapi.response.embed.Embed;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
 import dev.sbs.discordapi.response.handler.item.ItemHandler;
 import dev.sbs.discordapi.response.page.item.Item;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -353,7 +353,6 @@ public final class TreePage implements Page, Subpages<TreePage> {
          *
          * @return A built {@link TreePage}.
          */
-        @Override
         public @NotNull TreePage build() {
             Reflection.validateFlags(this);
 

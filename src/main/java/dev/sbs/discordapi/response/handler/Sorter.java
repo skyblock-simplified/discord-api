@@ -1,16 +1,15 @@
 package dev.sbs.discordapi.response.handler;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
-import dev.sbs.api.collection.query.SortOrder;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.capability.UserInteractable;
 import dev.sbs.discordapi.component.interaction.RadioGroup;
 import dev.sbs.discordapi.response.page.item.Item;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.ConcurrentMap;
+import dev.simplified.collection.query.SortOrder;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -122,7 +121,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder<T> implements ClassBuilder<Sorter<T>> {
+    public static class Builder<T> {
 
         private String identifier = UUID.randomUUID().toString();
         @BuildFlag(notEmpty = true)
@@ -328,7 +327,6 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
             return this;
         }
 
-        @Override
         public @NotNull Sorter<T> build() {
             Reflection.validateFlags(this);
 

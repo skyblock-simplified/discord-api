@@ -1,12 +1,12 @@
 package dev.sbs.discordapi.diagram;
 
-import dev.sbs.api.util.diagram.DiagramConfig;
-import dev.sbs.api.util.diagram.DiagramConfig.LayeringOption;
-import dev.sbs.api.util.diagram.DiagramConfig.LayeringStrategy;
-import dev.sbs.api.util.diagram.TypeHierarchyDiagram;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.capability.UserInteractable;
 import dev.sbs.discordapi.context.EventContext;
+import dev.simplified.reflection.diagram.DiagramConfig;
+import dev.simplified.reflection.diagram.DiagramConfig.LayeringOption;
+import dev.simplified.reflection.diagram.DiagramConfig.LayeringStrategy;
+import dev.simplified.reflection.diagram.TypeHierarchyDiagram;
 
 import java.io.IOException;
 import java.nio.file.Path;

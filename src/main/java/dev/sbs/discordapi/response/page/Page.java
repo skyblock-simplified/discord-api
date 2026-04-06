@@ -1,10 +1,5 @@
 package dev.sbs.discordapi.response.page;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.capability.Toggleable;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
@@ -14,6 +9,10 @@ import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
 import dev.sbs.discordapi.response.handler.item.ItemHandler;
 import dev.sbs.discordapi.response.page.item.Item;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import org.intellij.lang.annotations.PrintFormat;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -80,7 +79,7 @@ public interface Page {
             .findFirst();
     }
 
-    abstract class Builder implements ClassBuilder<Page> {
+    abstract class Builder {
 
         @BuildFlag(nonNull = true)
         protected SelectMenu.Option.Builder optionBuilder = SelectMenu.Option.builder();
@@ -294,7 +293,6 @@ public interface Page {
          *
          * @return A built {@link Page}.
          */
-        @Override
         public abstract @NotNull Page build();
 
     }

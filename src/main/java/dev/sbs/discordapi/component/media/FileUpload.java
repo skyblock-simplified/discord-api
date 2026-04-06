@@ -1,9 +1,8 @@
 package dev.sbs.discordapi.component.media;
 
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.layout.Label;
 import dev.sbs.discordapi.component.scope.LabelComponent;
+import dev.simplified.util.StringUtil;
 import discord4j.core.spec.MessageCreateFields;
 import discord4j.discordjson.json.ComponentData;
 import lombok.AccessLevel;
@@ -185,7 +184,7 @@ public final class FileUpload implements LabelComponent {
      * a nested {@link MediaData.Builder}.
      */
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<FileUpload> {
+    public static class Builder {
 
         private String identifier;
         private int minValues = 1;
@@ -361,7 +360,6 @@ public final class FileUpload implements LabelComponent {
         /**
          * Builds a new {@link FileUpload} from the configured fields.
          */
-        @Override
         public @NotNull FileUpload build() {
             return new FileUpload(
                 this.identifier,

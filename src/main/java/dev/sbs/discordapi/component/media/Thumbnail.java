@@ -1,9 +1,8 @@
 package dev.sbs.discordapi.component.media;
 
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.layout.Section;
 import dev.sbs.discordapi.component.scope.AccessoryComponent;
+import dev.simplified.util.StringUtil;
 import discord4j.core.object.component.MediaGalleryItem;
 import discord4j.core.object.component.UnfurledMediaItem;
 import lombok.AccessLevel;
@@ -138,7 +137,7 @@ public class Thumbnail implements AccessoryComponent {
      * a nested {@link MediaData.Builder}.
      */
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<Thumbnail> {
+    public static class Builder {
 
         private MediaData.Builder mediaData = MediaData.builder();
         private Optional<String> description = Optional.empty();
@@ -271,7 +270,6 @@ public class Thumbnail implements AccessoryComponent {
         /**
          * Builds a new {@link Thumbnail} from the configured fields.
          */
-        @Override
         public @NotNull Thumbnail build() {
             return new Thumbnail(
                 this.mediaData.build(),

@@ -1,11 +1,10 @@
 package dev.sbs.discordapi.component.media;
 
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.NumberUtil;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.exception.DiscordException;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.NumberUtil;
+import dev.simplified.util.StringUtil;
 import discord4j.core.object.component.UnfurledMediaItem;
 import discord4j.core.spec.MessageCreateFields;
 import lombok.AccessLevel;
@@ -209,7 +208,7 @@ public final class MediaData {
      * enforced by a {@link BuildFlag} group constraint named {@code "file"}.
      */
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<MediaData> {
+    public static class Builder {
 
         private int fileId = NumberUtil.rand(0);
         private String name = UUID.randomUUID().toString();
@@ -392,9 +391,8 @@ public final class MediaData {
         /**
          * Builds a new {@link MediaData} from the configured fields.
          *
-         * @throws dev.sbs.api.reflection.exception.ReflectionException if neither url nor uploadStream is set
+         * @throws dev.simplified.reflection.exception.ReflectionException if neither url nor uploadStream is set
          */
-        @Override
         public @NotNull MediaData build() {
             Reflection.validateFlags(this);
 

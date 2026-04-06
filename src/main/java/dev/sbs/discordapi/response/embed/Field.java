@@ -1,11 +1,10 @@
 package dev.sbs.discordapi.response.embed;
 
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.tuple.triple.Triple;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.response.Emoji;
+import dev.simplified.collection.tuple.triple.Triple;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import discord4j.core.spec.EmbedCreateFields;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -90,7 +89,7 @@ public final class Field {
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<Field> {
+    public static class Builder {
 
         private Optional<Emoji> emoji = Optional.empty();
         @BuildFlag(limit = 256)
@@ -193,7 +192,6 @@ public final class Field {
             return this;
         }
 
-        @Override
         public @NotNull Field build() {
             Reflection.validateFlags(this);
 

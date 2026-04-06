@@ -1,13 +1,13 @@
 package dev.sbs.discordapi.handler;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.ConcurrentSet;
-import dev.sbs.api.math.Range;
-import dev.sbs.api.reflection.info.ResourceInfo;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.util.DiscordReference;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.ConcurrentSet;
+import dev.simplified.reflection.info.ResourceInfo;
+import dev.simplified.util.Range;
 import discord4j.core.object.entity.ApplicationEmoji;
 import discord4j.core.object.entity.ApplicationInfo;
 import discord4j.core.spec.ApplicationEmojiCreateSpec;

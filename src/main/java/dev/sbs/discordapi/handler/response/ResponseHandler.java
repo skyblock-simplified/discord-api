@@ -1,7 +1,7 @@
 package dev.sbs.discordapi.handler.response;
 
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.response.Response;
+import dev.simplified.collection.ConcurrentList;
 import discord4j.common.util.Snowflake;
 import org.jetbrains.annotations.NotNull;
 

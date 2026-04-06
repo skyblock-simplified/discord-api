@@ -1,10 +1,10 @@
 package dev.sbs.discordapi.component.layout;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.component.scope.ActionComponent;
 import dev.sbs.discordapi.component.scope.ContainerComponent;
 import dev.sbs.discordapi.component.scope.LayoutComponent;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

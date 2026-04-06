@@ -1,7 +1,7 @@
 package dev.sbs.discordapi.response.page.item;
 
-import dev.sbs.api.collection.concurrent.ConcurrentMap;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
+import dev.simplified.collection.ConcurrentMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;

@@ -1,7 +1,7 @@
 package dev.sbs.discordapi;
 
 import dev.sbs.api.SimplifiedApi;
-import dev.sbs.api.scheduler.Scheduler;
+import dev.simplified.scheduler.Scheduler;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestPlan;
 

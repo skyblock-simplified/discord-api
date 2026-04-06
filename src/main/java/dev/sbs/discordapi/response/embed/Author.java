@@ -1,9 +1,8 @@
 package dev.sbs.discordapi.response.embed;
 
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import discord4j.core.spec.EmbedCreateFields;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -50,7 +49,7 @@ public final class Author {
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<Author> {
+    public static class Builder {
 
         @BuildFlag(notEmpty = true, limit = 256)
         private Optional<String> name = Optional.empty();
@@ -144,7 +143,6 @@ public final class Author {
             return this;
         }
 
-        @Override
         public @NotNull Author build() {
             Reflection.validateFlags(this);
 

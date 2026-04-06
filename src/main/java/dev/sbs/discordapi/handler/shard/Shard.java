@@ -1,8 +1,8 @@
 package dev.sbs.discordapi.handler.shard;
 
-import dev.sbs.api.reflection.Reflection;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.util.DiscordReference;
+import dev.simplified.reflection.Reflection;
 import discord4j.common.close.CloseStatus;
 import discord4j.core.DiscordClient;
 import discord4j.core.shard.GatewayBootstrap;

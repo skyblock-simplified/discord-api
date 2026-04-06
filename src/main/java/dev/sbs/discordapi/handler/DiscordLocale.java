@@ -1,6 +1,6 @@
 package dev.sbs.discordapi.handler;
 
-import dev.sbs.api.util.StringUtil;
+import dev.simplified.util.StringUtil;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;

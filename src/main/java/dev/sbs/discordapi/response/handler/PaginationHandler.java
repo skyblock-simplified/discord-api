@@ -1,9 +1,5 @@
 package dev.sbs.discordapi.response.handler;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.math.Range;
-import dev.sbs.api.util.NumberUtil;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.interaction.Button;
@@ -26,6 +22,10 @@ import dev.sbs.discordapi.response.page.Page;
 import dev.sbs.discordapi.response.page.item.Item;
 import dev.sbs.discordapi.response.page.item.field.FieldItem;
 import dev.sbs.discordapi.util.DiscordReference;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.util.NumberUtil;
+import dev.simplified.util.Range;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reactor.core.publisher.Mono;

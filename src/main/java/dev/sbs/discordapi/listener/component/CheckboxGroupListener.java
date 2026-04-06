@@ -1,11 +1,11 @@
 package dev.sbs.discordapi.listener.component;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.component.interaction.CheckboxGroup;
 import dev.sbs.discordapi.context.component.CheckboxGroupContext;
 import dev.sbs.discordapi.handler.response.ResponseFollowup;
 import dev.sbs.discordapi.response.Response;
+import dev.simplified.collection.Concurrent;
 import discord4j.core.event.domain.interaction.ComponentInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 

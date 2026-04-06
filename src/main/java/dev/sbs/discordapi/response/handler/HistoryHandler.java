@@ -1,12 +1,11 @@
 package dev.sbs.discordapi.response.handler;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.util.NumberUtil;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.exception.DiscordException;
 import dev.sbs.discordapi.response.page.Paging;
 import dev.sbs.discordapi.response.page.Subpages;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.util.NumberUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -236,7 +235,7 @@ public class HistoryHandler<P, I> implements OutputHandler<P>, Paging<P> {
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder<P, I> implements ClassBuilder<HistoryHandler<P, I>> {
+    public static class Builder<P, I> {
 
         private final ConcurrentList<P> pages = Concurrent.newList();
         private Optional<Function<P, I>> transformer = Optional.empty();
@@ -280,7 +279,6 @@ public class HistoryHandler<P, I> implements OutputHandler<P>, Paging<P> {
             return this;
         }
 
-        @Override
         public @NotNull HistoryHandler<P, I> build() {
             return new HistoryHandler<>(
                 this.pages.toUnmodifiableList(),

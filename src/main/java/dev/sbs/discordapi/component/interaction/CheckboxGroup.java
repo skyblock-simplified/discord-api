@@ -1,11 +1,5 @@
 package dev.sbs.discordapi.component.interaction;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.capability.EventInteractable;
 import dev.sbs.discordapi.component.capability.Toggleable;
@@ -15,6 +9,11 @@ import dev.sbs.discordapi.component.scope.LabelComponent;
 import dev.sbs.discordapi.context.component.CheckboxContext;
 import dev.sbs.discordapi.context.component.CheckboxGroupContext;
 import dev.sbs.discordapi.context.scope.ComponentContext;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import discord4j.discordjson.json.ComponentData;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -232,7 +231,7 @@ public final class CheckboxGroup implements ActionComponent, EventInteractable<C
      * A builder for constructing {@link CheckboxGroup} instances.
      */
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<CheckboxGroup> {
+    public static class Builder {
 
         @BuildFlag(nonNull = true)
         private String identifier;
@@ -396,7 +395,6 @@ public final class CheckboxGroup implements ActionComponent, EventInteractable<C
          *
          * @return a new {@link CheckboxGroup} instance
          */
-        @Override
         public @NotNull CheckboxGroup build() {
             Reflection.validateFlags(this);
 
@@ -506,7 +504,7 @@ public final class CheckboxGroup implements ActionComponent, EventInteractable<C
          * A builder for constructing {@link Option} instances.
          */
         @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-        public static final class Builder implements ClassBuilder<Option> {
+        public static final class Builder {
 
             private final UUID uniqueId;
             private Optional<String> label = Optional.empty();
@@ -589,7 +587,6 @@ public final class CheckboxGroup implements ActionComponent, EventInteractable<C
              *
              * @return a new {@link Option} instance
              */
-            @Override
             public @NotNull Option build() {
                 return new Option(
                     this.uniqueId,

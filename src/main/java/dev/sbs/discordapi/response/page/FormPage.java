@@ -1,15 +1,15 @@
 package dev.sbs.discordapi.response.page;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
 import dev.sbs.discordapi.component.interaction.SelectMenu;
 import dev.sbs.discordapi.component.scope.LayoutComponent;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
 import dev.sbs.discordapi.response.handler.item.ItemHandler;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -240,7 +240,6 @@ public final class FormPage implements Page {
          *
          * @return A built {@link FormPage}.
          */
-        @Override
         public @NotNull FormPage build() {
             Reflection.validateFlags(this);
 

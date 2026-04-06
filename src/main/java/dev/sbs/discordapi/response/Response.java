@@ -1,13 +1,5 @@
 package dev.sbs.discordapi.response;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.query.SearchFunction;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.ExceptionUtil;
-import dev.sbs.api.util.NumberUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.media.Attachment;
@@ -22,6 +14,13 @@ import dev.sbs.discordapi.response.handler.PaginationHandler;
 import dev.sbs.discordapi.response.handler.item.EmbedItemHandler;
 import dev.sbs.discordapi.response.page.Page;
 import dev.sbs.discordapi.response.page.TreePage;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.query.SearchFunction;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.ExceptionUtil;
+import dev.simplified.util.NumberUtil;
 import discord4j.common.util.Snowflake;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
@@ -349,7 +348,7 @@ public final class Response {
     // --- Builder ---
 
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder implements ClassBuilder<Response> {
+    public static class Builder {
 
         @BuildFlag(nonNull = true)
         private UUID uniqueId = UUID.randomUUID();
@@ -696,7 +695,6 @@ public final class Response {
          *
          * @return a built {@link Response}
          */
-        @Override
         public @NotNull Response build() {
             Reflection.validateFlags(this);
 

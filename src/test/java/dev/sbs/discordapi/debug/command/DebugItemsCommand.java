@@ -1,7 +1,5 @@
 package dev.sbs.discordapi.debug.command;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.command.DiscordCommand;
 import dev.sbs.discordapi.command.Structure;
@@ -15,6 +13,8 @@ import dev.sbs.discordapi.response.handler.item.ItemHandler;
 import dev.sbs.discordapi.response.page.Page;
 import dev.sbs.discordapi.response.page.item.FooterItem;
 import dev.sbs.discordapi.response.page.item.field.StringItem;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import reactor.core.publisher.Mono;

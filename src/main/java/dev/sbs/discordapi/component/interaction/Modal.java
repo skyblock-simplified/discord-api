@@ -1,10 +1,5 @@
 package dev.sbs.discordapi.component.interaction;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.command.exception.InputException;
 import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.capability.EventInteractable;
@@ -17,6 +12,10 @@ import dev.sbs.discordapi.component.scope.TopLevelModalComponent;
 import dev.sbs.discordapi.context.capability.ExceptionContext;
 import dev.sbs.discordapi.context.component.ModalContext;
 import dev.sbs.discordapi.context.scope.ComponentContext;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
 import discord4j.core.event.domain.interaction.ModalSubmitInteractionEvent;
 import discord4j.core.spec.InteractionPresentModalSpec;
 import discord4j.discordjson.possible.Possible;
@@ -218,7 +217,7 @@ public final class Modal implements EventInteractable<ModalContext>, UserInterac
      * A builder for constructing {@link Modal} instances.
      */
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static final class Builder implements ClassBuilder<Modal> {
+    public static final class Builder {
 
         @BuildFlag(nonNull = true)
         private String identifier;
@@ -334,7 +333,6 @@ public final class Modal implements EventInteractable<ModalContext>, UserInterac
          *
          * @return a new {@link Modal} instance
          */
-        @Override
         public @NotNull Modal build() {
             Reflection.validateFlags(this);
 

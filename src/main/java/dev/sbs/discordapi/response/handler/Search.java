@@ -1,13 +1,12 @@
 package dev.sbs.discordapi.response.handler;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.interaction.TextInput;
 import dev.sbs.discordapi.response.page.item.field.FieldItem;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -78,7 +77,7 @@ public class Search<T> {
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder<T> implements ClassBuilder<Search<T>> {
+    public static class Builder<T> {
 
         @BuildFlag(nonNull = true)
         private TextInput.Builder textInputBuilder = TextInput.builder().withSearchType(TextInput.SearchType.CUSTOM);
@@ -152,7 +151,6 @@ public class Search<T> {
             return this;
         }
 
-        @Override
         public @NotNull Search<T> build() {
             Reflection.validateFlags(this);
 

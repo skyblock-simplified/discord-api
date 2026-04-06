@@ -1,15 +1,14 @@
 package dev.sbs.discordapi.response.handler;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.function.TriPredicate;
-import dev.sbs.api.reflection.Reflection;
-import dev.sbs.api.util.StringUtil;
-import dev.sbs.api.util.builder.BuildFlag;
-import dev.sbs.api.util.builder.ClassBuilder;
 import dev.sbs.discordapi.component.capability.UserInteractable;
 import dev.sbs.discordapi.component.interaction.CheckboxGroup;
 import dev.sbs.discordapi.response.page.item.field.FieldItem;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.function.TriPredicate;
+import dev.simplified.reflection.Reflection;
+import dev.simplified.reflection.builder.BuildFlag;
+import dev.simplified.util.StringUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -98,7 +97,7 @@ public class Filter<T> implements TriPredicate<T, Long, Long>, UserInteractable 
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Builder<T> implements ClassBuilder<Filter<T>> {
+    public static class Builder<T> {
 
         private String identifier = UUID.randomUUID().toString();
         @BuildFlag(notEmpty = true)
@@ -242,7 +241,6 @@ public class Filter<T> implements TriPredicate<T, Long, Long>, UserInteractable 
             return this;
         }
 
-        @Override
         public @NotNull Filter<T> build() {
             Reflection.validateFlags(this);
 

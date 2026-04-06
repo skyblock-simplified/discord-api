@@ -1,13 +1,13 @@
 package dev.sbs.discordapi.util;
 
-import dev.sbs.api.collection.concurrent.Concurrent;
-import dev.sbs.api.collection.concurrent.ConcurrentList;
-import dev.sbs.api.collection.concurrent.linked.ConcurrentLinkedMap;
-import dev.sbs.api.util.StringUtil;
 import dev.sbs.discordapi.DiscordBot;
 import dev.sbs.discordapi.command.DiscordCommand;
 import dev.sbs.discordapi.command.Structure;
 import dev.sbs.discordapi.response.Emoji;
+import dev.simplified.collection.Concurrent;
+import dev.simplified.collection.ConcurrentList;
+import dev.simplified.collection.linked.ConcurrentLinkedMap;
+import dev.simplified.util.StringUtil;
 import discord4j.common.util.Snowflake;
 import discord4j.core.object.entity.Guild;
 import discord4j.core.object.entity.Member;
