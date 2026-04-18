@@ -6,14 +6,6 @@ import dev.sbs.discordapi.component.layout.Container;
 import dev.sbs.discordapi.component.layout.Section;
 import dev.sbs.discordapi.component.media.MediaGallery;
 import dev.sbs.discordapi.component.media.Thumbnail;
-import dev.sbs.discordapi.response.page.item.AuthorItem;
-import dev.sbs.discordapi.response.page.item.DescriptionItem;
-import dev.sbs.discordapi.response.page.item.FooterItem;
-import dev.sbs.discordapi.response.page.item.ImageUrlItem;
-import dev.sbs.discordapi.response.page.item.Item;
-import dev.sbs.discordapi.response.page.item.ThumbnailUrlItem;
-import dev.sbs.discordapi.response.page.item.TitleItem;
-import dev.sbs.discordapi.response.page.item.field.FieldItem;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.reflection.Reflection;
@@ -372,41 +364,6 @@ public final class Embed {
          */
         public Builder withFields(@NotNull Iterable<Field> fields) {
             fields.forEach(this.fields::add);
-            return this;
-        }
-
-        /**
-         * Add {@link Item Items} to the {@link Embed}.
-         *
-         * @param items Variable number of items to add.
-         */
-        public <T extends Item> Builder withItems(@NotNull T... items) {
-            return this.withItems(Arrays.asList(items));
-        }
-
-        /**
-         * Add {@link Item Items} to the {@link Embed}.
-         *
-         *
-         * @param items Collection of non-page items to add.
-         */
-        public <T extends Item> Builder withItems(@NotNull Iterable<T> items) {
-            items.forEach(item -> {
-                switch (item.getType()) {
-                    case AUTHOR -> this.withAuthor(item.asType(AuthorItem.class).asAuthor());
-                    case DESCRIPTION -> this.withDescription(item.asType(DescriptionItem.class).getValue());
-                    case FOOTER -> this.withFooter(item.asType(FooterItem.class).asFooter());
-                    case IMAGE_URL -> this.withImageUrl(item.asType(ImageUrlItem.class).getValue());
-                    case FIELD -> this.withFields(item.asType(FieldItem.class).getRenderField());
-                    case THUMBNAIL_URL -> this.withThumbnailUrl(item.asType(ThumbnailUrlItem.class).getValue());
-                    case TITLE -> {
-                        TitleItem titleItem = item.asType(TitleItem.class);
-                        this.withTitle(titleItem.getText());
-                        this.withUrl(titleItem.getUrl());
-                    }
-                }
-            });
-
             return this;
         }
 

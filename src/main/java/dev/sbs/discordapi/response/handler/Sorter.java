@@ -2,7 +2,6 @@ package dev.sbs.discordapi.response.handler;
 
 import dev.sbs.discordapi.component.capability.UserInteractable;
 import dev.sbs.discordapi.component.interaction.RadioGroup;
-import dev.sbs.discordapi.response.page.item.Item;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.collection.ConcurrentMap;
@@ -168,7 +167,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
         }
 
         /**
-         * Add custom comparators for the {@link Item FieldItems}.
+         * Add custom comparators for items.
          *
          * @param comparators a variable amount of comparators
          */
@@ -178,7 +177,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
         }
 
         /**
-         * Add custom comparators for the {@link Item FieldItems}.
+         * Add custom comparators for items.
          *
          * @param order how the comparators are sorted
          * @param comparators a variable amount of comparators
@@ -189,7 +188,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
         }
 
         /**
-         * Add custom sort functions for the {@link Item FieldItems}.
+         * Add custom sort functions for items.
          *
          * @param comparators a variable amount of comparators
          */
@@ -198,7 +197,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
         }
 
         /**
-         * Add custom sort functions for the {@link Item FieldItems}.
+         * Add custom sort functions for items.
          *
          * @param order how the comparators are sorted
          * @param comparators a variable amount of comparators
@@ -243,7 +242,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
         }
 
         /**
-         * Add custom sort functions for the {@link Item FieldItems}.
+         * Add custom sort functions for items.
          *
          * @param functions a variable amount of sort functions
          */
@@ -253,7 +252,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
         }
 
         /**
-         * Add custom sort functions for the {@link Item FieldItems}.
+         * Add custom sort functions for items.
          *
          * @param functions a variable amount of sort functions
          * @param order how the comparators are sorted
@@ -264,7 +263,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
         }
 
         /**
-         * Add custom sort functions for the {@link Item FieldItems}.
+         * Add custom sort functions for items.
          *
          * @param functions a collection of sort functions
          */
@@ -273,7 +272,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
         }
 
         /**
-         * Add custom sort functions for the {@link Item FieldItems}.
+         * Add custom sort functions for items.
          *
          * @param functions a collection of sort functions
          * @param order how the comparators are sorted
@@ -315,7 +314,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
         }
 
         /**
-         * Sets the sort order for the {@link Item PageItems}.
+         * Sets the sort order for the items.
          * <br><br>
          * Descending - Highest to Lowest (Default)<br>
          * Ascending - Lowest to Highest

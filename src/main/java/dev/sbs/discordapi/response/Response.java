@@ -10,9 +10,9 @@ import dev.sbs.discordapi.response.embed.Embed;
 import dev.sbs.discordapi.response.embed.Field;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
 import dev.sbs.discordapi.response.handler.PaginationHandler;
-import dev.sbs.discordapi.response.handler.item.EmbedItemHandler;
 import dev.sbs.discordapi.response.page.Page;
 import dev.sbs.discordapi.response.page.TreePage;
+import dev.sbs.discordapi.response.page.editor.EditorPage;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.collection.query.SearchFunction;
@@ -127,18 +127,6 @@ public final class Response {
 
         if (currentPage instanceof TreePage treePage)
             embeds.addAll(treePage.getEmbeds());
-
-        if (currentPage.hasItems()) {
-            EmbedItemHandler<?> legacyHandler = (EmbedItemHandler<?>) currentPage.getItemHandler();
-            ConcurrentList<Field> renderFields = legacyHandler.getRenderFields();
-
-            embeds.add(
-                Embed.builder()
-                    .withItems(legacyHandler.getCachedStaticItems())
-                    .withFields(renderFields)
-                    .build()
-            );
-        }
 
         return embeds;
     }
@@ -739,6 +727,9 @@ public final class Response {
          * @return a built {@link Response}
          */
         public @NotNull Response build() {
+            if (this.persistent && this.pages.stream().anyMatch(EditorPage.class::isInstance))
+                throw new IllegalStateException("Persistent responses are not yet supported for EditorPage");
+
             Reflection.validateFlags(this);
 
             Response response = new Response(

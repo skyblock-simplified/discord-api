@@ -6,7 +6,6 @@ import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.embed.Embed;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
 import dev.sbs.discordapi.response.handler.item.ItemHandler;
-import dev.sbs.discordapi.response.page.item.Item;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.reflection.Reflection;
@@ -89,7 +88,7 @@ public final class TreePage implements Page, Subpages<TreePage> {
         private Optional<String> content = Optional.empty();
         private final ConcurrentList<TreePage> pages = Concurrent.newList();
         private final ConcurrentList<Embed> embeds = Concurrent.newList();
-        private ItemHandler<?> itemHandler = ItemHandler.<Item>embed().build();
+        private ItemHandler<?> itemHandler = ItemHandler.<Object>embed().build();
 
         /**
          * Clear all but preservable components from {@link TreePage}.

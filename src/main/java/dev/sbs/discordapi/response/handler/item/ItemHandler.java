@@ -7,8 +7,6 @@ import dev.sbs.discordapi.response.handler.SortHandler;
 import dev.sbs.discordapi.response.page.Paging;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.collection.ConcurrentMap;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -16,11 +14,11 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>
  * Provides navigation through pages of items and exposes handlers for sorting, filtering,
- * and searching. The default implementation is {@link EmbedItemHandler}, which renders
- * items as embed fields.
+ * and searching. The default implementation is {@link ComponentItemHandler}, which renders
+ * items as {@link dev.sbs.discordapi.component.layout.Section Sections}.
  *
  * @param <T> the item type
- * @see EmbedItemHandler
+ * @see ComponentItemHandler
  * @see OutputHandler
  * @see Paging
  */
@@ -37,13 +35,14 @@ public interface ItemHandler<T> extends OutputHandler<T>, Paging<Integer> {
     }
 
     /**
-     * Creates a new embed item handler builder.
+     * Creates a new embed-style item handler builder. Retained as an alias for
+     * {@link #component()} while call sites are migrated.
      *
      * @param <T> the item type
-     * @return a new {@link EmbedItemHandler.Builder}
+     * @return a new {@link ComponentItemHandler.Builder}
      */
-    static <T> @NotNull EmbedItemHandler.Builder<T> embed() {
-        return EmbedItemHandler.builder();
+    static <T> @NotNull ComponentItemHandler.Builder<T> embed() {
+        return ComponentItemHandler.builder();
     }
 
     /** Navigates to the first item page. */
@@ -87,39 +86,5 @@ public interface ItemHandler<T> extends OutputHandler<T>, Paging<Integer> {
 
     /** The number of items displayed per page. */
     int getAmountPerPage();
-
-    /** Whether the editor mode is enabled. */
-    boolean isEditorEnabled();
-
-    /**
-     * Rendering style for embed-based item display.
-     *
-     * @see EmbedItemHandler
-     */
-    @Getter
-    @RequiredArgsConstructor
-    enum FieldStyle {
-
-        /**
-         * Displays each item as a single field without overriding inline state.
-         */
-        DEFAULT(false),
-        /**
-         * Displays each item as a single field, overriding inline state to non-inline.
-         */
-        FIELD(false),
-        /**
-         * Displays each item as a single inline field.
-         */
-        FIELD_INLINE(true),
-        /**
-         * Displays all items as a single list field.
-         */
-        LIST(false);
-
-        /** Whether fields rendered in this style are inline. */
-        private final boolean inline;
-
-    }
 
 }

@@ -1,7 +1,6 @@
 package dev.sbs.discordapi.response.handler;
 
 import dev.sbs.discordapi.component.interaction.TextInput;
-import dev.sbs.discordapi.response.page.item.field.FieldItem;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.reflection.Reflection;
@@ -85,7 +84,7 @@ public class Search<T> {
         private final ConcurrentList<BiPredicate<T, String>> predicates = Concurrent.newList();
 
         /**
-         * Add custom search predicates for the {@link FieldItem FieldItems}.
+         * Add custom search predicates for items.
          *
          * @param predicates A variable amount of predicates.
          */
@@ -94,7 +93,7 @@ public class Search<T> {
         }
 
         /**
-         * Add custom search predicates for the {@link FieldItem FieldItems}.
+         * Add custom search predicates for items.
          *
          * @param predicates A variable amount of predicates.
          */
@@ -104,7 +103,7 @@ public class Search<T> {
         }
 
         /**
-         * Add custom search predicates for the {@link FieldItem FieldItems}.
+         * Add custom search predicates for items.
          *
          * @param predicates A variable amount of predicates.
          */
@@ -113,7 +112,7 @@ public class Search<T> {
         }
 
         /**
-         * Add custom search predicates for the {@link FieldItem FieldItems}.
+         * Add custom search predicates for items.
          *
          * @param predicates A variable amount of predicates.
          */

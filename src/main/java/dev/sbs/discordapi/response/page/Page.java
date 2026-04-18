@@ -8,7 +8,7 @@ import dev.sbs.discordapi.component.scope.LayoutComponent;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
 import dev.sbs.discordapi.response.handler.item.ItemHandler;
-import dev.sbs.discordapi.response.page.item.Item;
+import dev.sbs.discordapi.response.page.editor.EditorPage;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.reflection.builder.BuildFlag;
@@ -41,16 +41,16 @@ public interface Page {
         return TreePage.builder();
     }
 
-    static @NotNull FormPage.QuestionBuilder form() {
-        return FormPage.builder();
+    static <T> @NotNull EditorPage.Aggregate.AggregateBuilder<T> edit(@NotNull T initial) {
+        return EditorPage.Aggregate.builder(initial);
+    }
+
+    static <T> @NotNull EditorPage.Builder.EditorBuilder<T> build(@NotNull T seed) {
+        return EditorPage.Builder.builder(seed);
     }
 
     static @NotNull TreePage.TreePageBuilder from(@NotNull TreePage treePage) {
         return TreePage.from(treePage);
-    }
-
-    static @NotNull FormPage.QuestionBuilder from(@NotNull FormPage formPage) {
-        return FormPage.from(formPage);
     }
 
     // Accessors
@@ -86,7 +86,7 @@ public interface Page {
         protected ConcurrentList<LayoutComponent> components = Concurrent.newList();
         protected ConcurrentList<Emoji> reactions = Concurrent.newList();
         @BuildFlag(nonNull = true)
-        protected ItemHandler<?> itemHandler = ItemHandler.<Item>embed().build();
+        protected ItemHandler<?> itemHandler = ItemHandler.<Object>embed().build();
 
         /**
          * Clear all but preservable components from {@link Page}.

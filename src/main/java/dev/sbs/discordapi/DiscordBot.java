@@ -54,8 +54,9 @@ import dev.sbs.discordapi.listener.message.MessageCreateListener;
 import dev.sbs.discordapi.listener.message.MessageDeleteListener;
 import dev.sbs.discordapi.listener.message.ReactionRemoveListener;
 import dev.sbs.discordapi.response.Response;
-import dev.sbs.discordapi.response.page.FormPage;
 import dev.sbs.discordapi.response.page.Page;
+import dev.sbs.discordapi.response.page.TreePage;
+import dev.sbs.discordapi.response.page.editor.EditorPage;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.collection.ConcurrentSet;
@@ -120,7 +121,8 @@ import java.util.concurrent.TimeUnit;
  *         <li>Implementations
  *         <ul>
  *             <li>{@link Response}</li>
- *             <li>{@link FormPage}</li>
+ *             <li>{@link TreePage}</li>
+ *             <li>{@link EditorPage}</li>
  *         </ul></li>
  *         <li>Components
  *         <ul>

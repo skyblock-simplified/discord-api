@@ -46,7 +46,6 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
     private final @NotNull ConcurrentMap<String, Object> variables;
     private final @NotNull TriFunction<T, Long, Long, Section> transformer;
     private final @NotNull BiFunction<ContainerComponent, ConcurrentMap<String, Object>, ContainerComponent> staticItemApplier;
-    private final boolean editorEnabled;
     private final int amountPerPage;
 
     // Handlers
@@ -67,7 +66,6 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
         @NotNull ConcurrentMap<String, Object> variables,
         @NotNull TriFunction<T, Long, Long, Section> transformer,
         @NotNull BiFunction<ContainerComponent, ConcurrentMap<String, Object>, ContainerComponent> staticItemApplier,
-        boolean editorEnabled,
         int amountPerPage,
         @NotNull SortHandler<T> sortHandler,
         @NotNull FilterHandler<T> filterHandler,
@@ -78,7 +76,6 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
         this.variables = variables;
         this.transformer = transformer;
         this.staticItemApplier = staticItemApplier;
-        this.editorEnabled = editorEnabled;
         this.amountPerPage = amountPerPage;
         this.sortHandler = sortHandler;
         this.filterHandler = filterHandler;
@@ -98,7 +95,6 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
 
         return Objects.equals(this.getItems(), that.getItems())
             && Objects.equals(this.getVariables(), that.getVariables())
-            && this.isEditorEnabled() == that.isEditorEnabled()
             && this.getAmountPerPage() == that.getAmountPerPage()
             && Objects.equals(this.getSortHandler(), that.getSortHandler())
             && Objects.equals(this.getFilterHandler(), that.getFilterHandler())
@@ -114,7 +110,6 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
             .withVariables(handler.getVariables())
             .withTransformer(handler.getTransformer())
             .withStaticItemApplier(handler.staticItemApplier)
-            .isEditorEnabled(handler.isEditorEnabled())
             .withAmountPerPage(handler.getAmountPerPage())
             .withSorters(handler.getSortHandler().getItems())
             .withFilters(handler.getFilterHandler().getItems())
@@ -218,11 +213,6 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
     }
 
     @Override
-    public boolean isEditorEnabled() {
-        return this.editorEnabled;
-    }
-
-    @Override
     public @NotNull SortHandler<T> getSortHandler() {
         return this.sortHandler;
     }
@@ -306,7 +296,7 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getItems(), this.getVariables(), this.isEditorEnabled(), this.getAmountPerPage(), this.getSortHandler(), this.getFilterHandler(), this.getSearchHandler(), this.isCacheUpdateRequired(), this.getCurrentIndex());
+        return Objects.hash(this.getItems(), this.getVariables(), this.getAmountPerPage(), this.getSortHandler(), this.getFilterHandler(), this.getSearchHandler(), this.isCacheUpdateRequired(), this.getCurrentIndex());
     }
 
     @Override
@@ -351,22 +341,12 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
         private TriFunction<T, Long, Long, Section> transformer = (t, index, size) -> Section.builder().build();
         @BuildFlag(nonNull = true)
         private BiFunction<ContainerComponent, ConcurrentMap<String, Object>, ContainerComponent> staticItemApplier = (component, vars) -> component;
-        private boolean editorEnabled = false;
         private int amountPerPage = 12;
 
         private Builder() {}
 
         public Builder<T> clearItems() {
             this.items.clear();
-            return this;
-        }
-
-        public Builder<T> isEditorEnabled() {
-            return this.isEditorEnabled(true);
-        }
-
-        public Builder<T> isEditorEnabled(boolean value) {
-            this.editorEnabled = value;
             return this;
         }
 
@@ -473,7 +453,6 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
                 this.variables,
                 this.transformer,
                 this.staticItemApplier,
-                this.editorEnabled,
                 this.amountPerPage,
                 new SortHandler<>(this.sorters),
                 new FilterHandler<>(this.filters),

@@ -16,11 +16,8 @@ import dev.sbs.discordapi.context.component.ButtonContext;
 import dev.sbs.discordapi.context.component.ModalContext;
 import dev.sbs.discordapi.context.component.SelectMenuContext;
 import dev.sbs.discordapi.response.Emoji;
-import dev.sbs.discordapi.response.handler.item.EmbedItemHandler;
 import dev.sbs.discordapi.response.handler.item.ItemHandler;
 import dev.sbs.discordapi.response.page.Page;
-import dev.sbs.discordapi.response.page.item.Item;
-import dev.sbs.discordapi.response.page.item.field.FieldItem;
 import dev.sbs.discordapi.util.DiscordReference;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
@@ -32,7 +29,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 /**
  * Builds pagination components with emoji access and provides interaction handlers
@@ -200,17 +196,6 @@ public class PaginationHandler extends DiscordReference {
                 response.getHistoryHandler().gotoParentPage();
             else
                 response.getHistoryHandler().gotoSubPage(selectedValue);
-        });
-    }
-
-    /**
-     * Returns the interaction handler for the {@link SelectMenu.PageType#ITEM} menu.
-     *
-     * @return the item selector interaction
-     */
-    public static @NotNull Function<SelectMenuContext, Mono<Void>> itemSelectionInteraction() {
-        return context -> context.consumeResponse(response -> {
-            // TODO: Build a viewer for item details or sub-lists
         });
     }
 
@@ -477,28 +462,6 @@ public class PaginationHandler extends DiscordReference {
         if (currentPage.hasItems()) {
             // Item List
             pageComponents.add(ActionRow.of(this.buildPaginationButtonsWithEmoji()));
-
-            // Editor
-            if (currentPage.getItemHandler().isEditorEnabled()) {
-                EmbedItemHandler<?> legacyHandler = (EmbedItemHandler<?>) currentPage.getItemHandler();
-                ConcurrentList<FieldItem<?>> cachedFieldItems = legacyHandler.getCachedFieldItems();
-
-                pageComponents.add(ActionRow.of(
-                    SelectMenu.builder()
-                        .withPageType(SelectMenu.PageType.ITEM)
-                        .withPlaceholder("Select an item to edit.")
-                        .onInteract(itemSelectionInteraction())
-                        .withOptions(
-                            Stream.concat(
-                                    legacyHandler.getCachedStaticItems().stream(),
-                                    cachedFieldItems.stream()
-                                )
-                                .map(Item::getOption)
-                                .collect(Concurrent.toList())
-                        )
-                        .build()
-                ));
-            }
         }
 
         ConcurrentList<TopLevelMessageComponent> result = pageComponents.toUnmodifiableList();

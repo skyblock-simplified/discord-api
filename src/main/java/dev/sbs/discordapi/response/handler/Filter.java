@@ -2,7 +2,6 @@ package dev.sbs.discordapi.response.handler;
 
 import dev.sbs.discordapi.component.capability.UserInteractable;
 import dev.sbs.discordapi.component.interaction.CheckboxGroup;
-import dev.sbs.discordapi.response.page.item.field.FieldItem;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.collection.function.TriPredicate;
@@ -142,7 +141,7 @@ public class Filter<T> implements TriPredicate<T, Long, Long>, UserInteractable 
         }
 
         /**
-         * Adds predicates used to filter {@link FieldItem RenderItems}.
+         * Adds predicates used to filter items.
          *
          * @param predicates collection of filters to apply to {@link T}
          */
@@ -152,7 +151,7 @@ public class Filter<T> implements TriPredicate<T, Long, Long>, UserInteractable 
         }
 
         /**
-         * Adds predicates used to filter {@link FieldItem RenderItems}.
+         * Adds predicates used to filter items.
          *
          * @param predicates collection of filters to apply to {@link T}
          */
@@ -162,7 +161,7 @@ public class Filter<T> implements TriPredicate<T, Long, Long>, UserInteractable 
         }
 
         /**
-         * Adds predicates used to filter {@link FieldItem RenderItems}.
+         * Adds predicates used to filter items.
          *
          * @param predicates collection of filters to apply to {@link T}
          */
@@ -172,7 +171,7 @@ public class Filter<T> implements TriPredicate<T, Long, Long>, UserInteractable 
         }
 
         /**
-         * Adds predicates used to filter {@link FieldItem RenderItems}.
+         * Adds predicates used to filter items.
          *
          * @param predicates collection of filters to apply to {@link T}
          */
