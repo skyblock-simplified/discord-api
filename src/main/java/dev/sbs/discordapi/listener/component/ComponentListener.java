@@ -57,9 +57,11 @@ public abstract class ComponentListener<E extends ComponentInteractionEvent, C e
         if (event.getInteraction().getUser().isBot())
             return Mono.empty();
 
-        return this.getDiscordBot().getResponseLocator().findForInteraction(event)
+        return this.getDiscordBot()
+            .getResponseLocator()
+            .findForInteraction(event)
+            .switchIfEmpty(event.deferEdit().then(Mono.empty()))
             .flatMap(entry -> this.handleEvent(event, entry))
-            .switchIfEmpty(Mono.defer(event::deferEdit))
             .subscribeOn(Schedulers.boundedElastic());
     }
 
@@ -161,11 +163,10 @@ public abstract class ComponentListener<E extends ComponentInteractionEvent, C e
                     String.format("%s Exception", this.getTitle())
                 )
             ))
-            .switchIfEmpty(
-                Mono.just(entry)
-                    .filter(CachedResponse::isModified)
-                    .flatMap(__ -> followup.isEmpty() ? context.edit() : context.editFollowup())
-            )
+            .then(Mono.defer(() -> entry.isModified()
+                ? (followup.isEmpty() ? context.edit() : context.editFollowup())
+                : Mono.empty()
+            ))
             .then(entry.updateLastInteract())
             .then();
     }
@@ -233,11 +234,10 @@ public abstract class ComponentListener<E extends ComponentInteractionEvent, C e
                     )
                 )
             ))
-            .switchIfEmpty(
-                Mono.just(entry)
-                    .filter(CachedResponse::isModified)
-                    .flatMap(__ -> followup.isEmpty() ? context.edit() : context.editFollowup())
-            );
+            .then(Mono.defer(() -> entry.isModified()
+                ? (followup.isEmpty() ? context.edit() : context.editFollowup())
+                : Mono.empty()
+            ));
     }
 
 }
