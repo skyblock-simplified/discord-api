@@ -19,7 +19,7 @@ import dev.sbs.discordapi.context.component.SelectMenuContext;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.Response;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
-import dev.sbs.discordapi.response.handler.item.ItemHandler;
+import dev.sbs.discordapi.response.handler.ItemHandler;
 import dev.sbs.discordapi.response.page.Page;
 import dev.sbs.discordapi.response.page.editor.field.AggregateField;
 import dev.sbs.discordapi.response.page.editor.field.BuilderField;
@@ -783,7 +783,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
 
                 ConcurrentList<AggregateField<T, ?>> fieldList = this.fields.toUnmodifiableList();
 
-                ItemHandler<AggregateField<T, ?>> items = ItemHandler.<AggregateField<T, ?>>embed()
+                ItemHandler<AggregateField<T, ?>> items = ItemHandler.<AggregateField<T, ?>>builder()
                     .withItems(fieldList)
                     .build();
 
@@ -1204,7 +1204,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
 
                 ConcurrentList<BuilderField<T, ?>> fieldList = this.fields.toUnmodifiableList();
 
-                ItemHandler<BuilderField<T, ?>> items = ItemHandler.<BuilderField<T, ?>>embed()
+                ItemHandler<BuilderField<T, ?>> items = ItemHandler.<BuilderField<T, ?>>builder()
                     .withItems(fieldList)
                     .build();
 

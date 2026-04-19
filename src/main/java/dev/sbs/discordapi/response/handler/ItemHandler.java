@@ -1,14 +1,9 @@
-package dev.sbs.discordapi.response.handler.item;
+package dev.sbs.discordapi.response.handler;
 
 import dev.sbs.discordapi.component.layout.Container;
 import dev.sbs.discordapi.component.layout.Section;
 import dev.sbs.discordapi.component.scope.ContainerComponent;
-import dev.sbs.discordapi.response.handler.Filter;
-import dev.sbs.discordapi.response.handler.FilterHandler;
-import dev.sbs.discordapi.response.handler.Search;
-import dev.sbs.discordapi.response.handler.SearchHandler;
-import dev.sbs.discordapi.response.handler.SortHandler;
-import dev.sbs.discordapi.response.handler.Sorter;
+import dev.sbs.discordapi.response.page.Paging;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.collection.ConcurrentMap;
@@ -26,20 +21,21 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 
 /**
- * An {@link ItemHandler} implementation that renders items as {@link Section Sections}
- * inside a {@link Container}.
+ * Manages a paginated collection of items with sort, filter, and search capabilities,
+ * rendering each item as a {@link Section} inside a {@link Container}.
  *
  * <p>
- * Instead of embed fields, each item is transformed into a {@code Section} via the
- * configured transformer. Static items are rendered as {@link ContainerComponent} instances
- * prepended to the container.
+ * Each item is transformed into a {@code Section} via the configured transformer, and
+ * static items are rendered as {@link ContainerComponent} instances prepended to the
+ * container.
  *
  * @param <T> the item type
- * @see ItemHandler
+ * @see OutputHandler
+ * @see Paging
  * @see Section
  * @see Container
  */
-public final class ComponentItemHandler<T> implements ItemHandler<T> {
+public final class ItemHandler<T> implements OutputHandler<T>, Paging<Integer> {
 
     private final @NotNull ConcurrentList<T> items;
     private final @NotNull ConcurrentList<ContainerComponent> staticItems;
@@ -60,7 +56,7 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
     private ConcurrentList<ContainerComponent> cachedStaticItems = Concurrent.newUnmodifiableList();
     private ConcurrentList<Section> cachedSections = Concurrent.newUnmodifiableList();
 
-    private ComponentItemHandler(
+    private ItemHandler(
         @NotNull ConcurrentList<T> items,
         @NotNull ConcurrentList<ContainerComponent> staticItems,
         @NotNull ConcurrentMap<String, Object> variables,
@@ -91,7 +87,7 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ComponentItemHandler<?> that = (ComponentItemHandler<?>) o;
+        ItemHandler<?> that = (ItemHandler<?>) o;
 
         return Objects.equals(this.getItems(), that.getItems())
             && Objects.equals(this.getVariables(), that.getVariables())
@@ -103,7 +99,7 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
             && this.getCurrentIndex() == that.getCurrentIndex();
     }
 
-    public static <T> @NotNull Builder<T> from(@NotNull ComponentItemHandler<T> handler) {
+    public static <T> @NotNull Builder<T> from(@NotNull ItemHandler<T> handler) {
         return new Builder<T>()
             .withItems(handler.getItems())
             .withStaticItems(handler.staticItems)
@@ -122,14 +118,15 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
     }
 
     /**
-     * {@inheritDoc}
+     * The cached static items with variables applied from the current pagination state.
      *
      * <p>
      * Applies the configured {@code staticItemApplier} to each raw static component on
      * cache refresh, allowing template placeholders in component text to reflect the
-     * current pagination variables.
+     * current pagination variables from {@link #getVariables()}.
+     *
+     * @return the variable-processed static items
      */
-    @Override
     public @NotNull ConcurrentList<ContainerComponent> getCachedStaticItems() {
         if (this.isCacheUpdateRequired()) {
             this.cachedStaticItems = this.staticItems.stream()
@@ -202,32 +199,32 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
         return this.items;
     }
 
-    @Override
+    /** The mutable variable map used for template evaluation. */
     public @NotNull ConcurrentMap<String, Object> getVariables() {
         return this.variables;
     }
 
-    @Override
+    /** The number of items displayed per page. */
     public int getAmountPerPage() {
         return this.amountPerPage;
     }
 
-    @Override
+    /** The sort handler managing item ordering. */
     public @NotNull SortHandler<T> getSortHandler() {
         return this.sortHandler;
     }
 
-    @Override
+    /** The filter handler managing item filtering. */
     public @NotNull FilterHandler<T> getFilterHandler() {
         return this.filterHandler;
     }
 
-    @Override
+    /** The search handler managing item search. */
     public @NotNull SearchHandler<T> getSearchHandler() {
         return this.searchHandler;
     }
 
-    @Override
+    /** The cached list of items after filtering and sorting. */
     public @NotNull ConcurrentList<T> getCachedFilteredItems() {
         return this.cachedFilteredItems;
     }
@@ -274,12 +271,12 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
         this.setCacheUpdateRequired();
     }
 
-    @Override
+    /** Navigates to the first item page. */
     public void gotoFirstItemPage() {
         this.gotoPage(1);
     }
 
-    @Override
+    /** Navigates to the last item page. */
     public void gotoLastItemPage() {
         this.gotoPage(this.getTotalPages());
     }
@@ -299,12 +296,12 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
         return Objects.hash(this.getItems(), this.getVariables(), this.getAmountPerPage(), this.getSortHandler(), this.getFilterHandler(), this.getSearchHandler(), this.isCacheUpdateRequired(), this.getCurrentIndex());
     }
 
-    @Override
+    /** Whether there is a next item page. */
     public boolean hasNextItemPage() {
         return this.currentIndex < this.getTotalPages();
     }
 
-    @Override
+    /** Whether there is a previous item page. */
     public boolean hasPreviousItemPage() {
         return this.currentIndex > 1;
     }
@@ -443,13 +440,13 @@ public final class ComponentItemHandler<T> implements ItemHandler<T> {
             return this;
         }
 
-        public @NotNull ComponentItemHandler<T> build() {
+        public @NotNull ItemHandler<T> build() {
             Reflection.validateFlags(this);
             this.variables.put("SIZE", this.items.size());
 
-            return new ComponentItemHandler<>(
-                this.items.toUnmodifiableList(),
-                this.staticItems.toUnmodifiableList(),
+            return new ItemHandler<>(
+                this.items.toUnmodifiable(),
+                this.staticItems.toUnmodifiable(),
                 this.variables,
                 this.transformer,
                 this.staticItemApplier,

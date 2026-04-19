@@ -7,7 +7,7 @@ import dev.sbs.discordapi.component.scope.ActionComponent;
 import dev.sbs.discordapi.component.scope.LayoutComponent;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
-import dev.sbs.discordapi.response.handler.item.ItemHandler;
+import dev.sbs.discordapi.response.handler.ItemHandler;
 import dev.sbs.discordapi.response.page.editor.EditorPage;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
@@ -86,7 +86,7 @@ public interface Page {
         protected ConcurrentList<LayoutComponent> components = Concurrent.newList();
         protected ConcurrentList<Emoji> reactions = Concurrent.newList();
         @BuildFlag(nonNull = true)
-        protected ItemHandler<?> itemHandler = ItemHandler.<Object>embed().build();
+        protected ItemHandler<?> itemHandler = ItemHandler.<Object>builder().build();
 
         /**
          * Clear all but preservable components from {@link Page}.

@@ -5,7 +5,7 @@ import dev.sbs.discordapi.component.scope.LayoutComponent;
 import dev.sbs.discordapi.response.Emoji;
 import dev.sbs.discordapi.response.embed.Embed;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
-import dev.sbs.discordapi.response.handler.item.ItemHandler;
+import dev.sbs.discordapi.response.handler.ItemHandler;
 import dev.simplified.collection.Concurrent;
 import dev.simplified.collection.ConcurrentList;
 import dev.simplified.reflection.Reflection;
@@ -88,7 +88,7 @@ public final class TreePage implements Page, Subpages<TreePage> {
         private Optional<String> content = Optional.empty();
         private final ConcurrentList<TreePage> pages = Concurrent.newList();
         private final ConcurrentList<Embed> embeds = Concurrent.newList();
-        private ItemHandler<?> itemHandler = ItemHandler.<Object>embed().build();
+        private ItemHandler<?> itemHandler = ItemHandler.<Object>builder().build();
 
         /**
          * Clear all but preservable components from {@link TreePage}.
@@ -360,8 +360,8 @@ public final class TreePage implements Page, Subpages<TreePage> {
 
             return new TreePage(
                 this.optionBuilder.build(),
-                this.components.toUnmodifiableList(),
-                this.reactions.toUnmodifiableList(),
+                this.components.toUnmodifiable(),
+                this.reactions.toUnmodifiable(),
                 this.itemHandler,
                 HistoryHandler.<TreePage, String>builder()
                     .withPages(this.pages)
@@ -369,7 +369,7 @@ public final class TreePage implements Page, Subpages<TreePage> {
                     .withTransformer(page -> page.getOption().getValue())
                     .build(),
                 this.content,
-                this.embeds.toUnmodifiableList()
+                this.embeds.toUnmodifiable()
             );
         }
 

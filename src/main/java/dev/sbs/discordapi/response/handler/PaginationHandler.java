@@ -16,7 +16,7 @@ import dev.sbs.discordapi.context.component.ButtonContext;
 import dev.sbs.discordapi.context.component.ModalContext;
 import dev.sbs.discordapi.context.component.SelectMenuContext;
 import dev.sbs.discordapi.response.Emoji;
-import dev.sbs.discordapi.response.handler.item.ItemHandler;
+import dev.sbs.discordapi.response.handler.ItemHandler;
 import dev.sbs.discordapi.response.page.Page;
 import dev.sbs.discordapi.util.DiscordReference;
 import dev.simplified.collection.Concurrent;
@@ -464,7 +464,7 @@ public class PaginationHandler extends DiscordReference {
             pageComponents.add(ActionRow.of(this.buildPaginationButtonsWithEmoji()));
         }
 
-        ConcurrentList<TopLevelMessageComponent> result = pageComponents.toUnmodifiableList();
+        ConcurrentList<TopLevelMessageComponent> result = pageComponents.toUnmodifiable();
 
         // Button state updates
         editButton(result, Button::getPageType, Button.PageType.PREVIOUS, builder -> builder.setEnabled(currentPage.getItemHandler().hasPreviousItemPage()));

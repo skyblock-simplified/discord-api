@@ -4,7 +4,7 @@ import dev.sbs.discordapi.component.Component;
 import dev.sbs.discordapi.component.scope.ActionComponent;
 import dev.sbs.discordapi.component.scope.LabelComponent;
 import dev.sbs.discordapi.context.component.ModalContext;
-import dev.sbs.discordapi.response.handler.item.ItemHandler;
+import dev.sbs.discordapi.response.handler.ItemHandler;
 import dev.simplified.reflection.builder.BuildFlag;
 import dev.simplified.util.NumberUtil;
 import dev.simplified.util.StringUtil;
