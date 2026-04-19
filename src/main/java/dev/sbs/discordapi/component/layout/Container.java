@@ -194,7 +194,7 @@ public final class Container implements LayoutComponent {
 
             return new Container(
                 this.accent,
-                this.components.toUnmodifiableList(),
+                this.components.toUnmodifiable(),
                 this.spoiler
             );
         }

@@ -20,7 +20,7 @@ import java.util.Optional;
  * Only the mutable navigation coordinates are stored here - the response's
  * structural content (embeds, components, page definitions) is reconstructed
  * on hydration by invoking the associated {@link dev.sbs.discordapi.response.PersistentResponse
- * @PersistentResponse} builder method. This minimises database writes and
+ * PersistentResponse} builder method. This minimises database writes and
  * avoids serializing un-serializable interaction lambdas.
  *
  * <p>

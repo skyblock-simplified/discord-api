@@ -181,7 +181,7 @@ public final class Section implements LayoutComponent, ContainerComponent {
 
             return new Section(
                 this.accessory.orElseThrow(),
-                this.components.toUnmodifiableList()
+                this.components.toUnmodifiable()
             );
         }
 

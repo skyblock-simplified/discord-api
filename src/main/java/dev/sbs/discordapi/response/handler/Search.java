@@ -155,7 +155,7 @@ public class Search<T> {
 
             return new Search<>(
                 this.textInputBuilder.withValue(Optional.empty()).build(),
-                this.predicates.toUnmodifiableList()
+                this.predicates.toUnmodifiable()
             );
         }
 

@@ -82,7 +82,7 @@ public final class ActionRow implements ContainerComponent, LayoutComponent {
     public static @NotNull ActionRow of(@NotNull Iterable<? extends ActionComponent> components) {
         ConcurrentList<ActionComponent> componentList = Concurrent.newList();
         components.forEach(componentList::add);
-        return new ActionRow(componentList.toUnmodifiableList());
+        return new ActionRow(componentList.toUnmodifiable());
     }
 
 }

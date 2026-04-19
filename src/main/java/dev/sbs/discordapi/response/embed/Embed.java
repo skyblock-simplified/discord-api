@@ -525,7 +525,7 @@ public final class Embed {
                 this.description,
                 this.imageUrl,
                 this.footer,
-                this.fields.toUnmodifiableList()
+                this.fields.toUnmodifiable()
             );
         }
 

@@ -247,7 +247,7 @@ public class Filter<T> implements TriPredicate<T, Long, Long>, UserInteractable 
                 this.identifier,
                 this.label.orElseThrow(),
                 this.description,
-                this.predicates.toUnmodifiableList(),
+                this.predicates.toUnmodifiable(),
                 this.enabled
             );
         }

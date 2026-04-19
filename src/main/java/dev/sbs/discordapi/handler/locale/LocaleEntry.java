@@ -1,5 +1,6 @@
 package dev.sbs.discordapi.handler.locale;
 
+import dev.sbs.discordapi.command.DiscordCommand;
 import dev.sbs.discordapi.handler.DiscordLocale;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,8 +14,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>
  * Entries are loaded from {@code resources/locale/<shortName>/commands.json}
- * at bot startup or supplied programmatically via
- * {@link dev.sbs.discordapi.command.DiscordCommand#getLocaleOverrides()}.
+ * at bot startup or supplied programmatically via {@link DiscordCommand#getLocaleOverrides()}.
  * Each entry pairs a {@link DiscordLocale} with a {@link Target target field}
  * and a natural-key {@link #getPath() path} identifying the command, option,
  * or choice being translated.

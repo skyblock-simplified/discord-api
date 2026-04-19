@@ -3,6 +3,7 @@ package dev.sbs.discordapi.handler;
 import dev.sbs.discordapi.command.DiscordCommand;
 import dev.sbs.discordapi.listener.Component;
 import dev.sbs.discordapi.response.PersistentResponse;
+import lombok.experimental.UtilityClass;
 import reactor.util.context.Context;
 
 /**
@@ -36,13 +37,10 @@ import reactor.util.context.Context;
  * the binding survives scheduler boundaries within a single reactive pipeline,
  * which the Discord4J dispatch chain relies on.
  */
+@UtilityClass
 public final class DispatchingClassContextKey {
 
     /** The Reactor {@link Context} key under which the dispatching class is stored. */
     public static final String KEY = "dev.sbs.discordapi.dispatching-class";
-
-    private DispatchingClassContextKey() {
-        throw new UnsupportedOperationException("DispatchingClassContextKey is a static holder");
-    }
 
 }

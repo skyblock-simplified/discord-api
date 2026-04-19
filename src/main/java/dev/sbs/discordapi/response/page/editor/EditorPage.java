@@ -166,7 +166,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
         });
 
         this.buildActionRow().ifPresent(output::add);
-        this.cachedComponents = output.toUnmodifiableList();
+        this.cachedComponents = output.toUnmodifiable();
         return this.cachedComponents;
     }
 
@@ -570,7 +570,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
             if (field.kind() instanceof FieldKind.Choice<?> choice && choice.choices().size() > SelectMenu.Option.MAX_ALLOWED) {
                 ConcurrentList<Choice<?>> cached = Concurrent.newList();
                 choice.choices().forEach(c -> cached.add((Choice<?>) c));
-                this.withInPageSession(new InPageEditSession(field.identifier(), 0, cached.toUnmodifiableList()));
+                this.withInPageSession(new InPageEditSession(field.identifier(), 0, cached.toUnmodifiable()));
                 this.markDirty();
                 return Mono.empty();
             }
@@ -781,7 +781,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
             public @NotNull Aggregate<T> build() {
                 Reflection.validateFlags(this);
 
-                ConcurrentList<AggregateField<T, ?>> fieldList = this.fields.toUnmodifiableList();
+                ConcurrentList<AggregateField<T, ?>> fieldList = this.fields.toUnmodifiable();
 
                 ItemHandler<AggregateField<T, ?>> items = ItemHandler.<AggregateField<T, ?>>builder()
                     .withItems(fieldList)
@@ -803,7 +803,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
                     this.hideReadOnlyFields,
                     this.accent,
                     this.cancelButton,
-                    this.reactions.toUnmodifiableList(),
+                    this.reactions.toUnmodifiable(),
                     this.onDelete,
                     this.showDirtyIndicator
                 );
@@ -867,7 +867,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
          * @return a pre-filled builder
          */
         @SuppressWarnings("unchecked")
-        public static <T> @NotNull EditorBuilder<T> from(@NotNull Builder<T> page) {
+        public static <T> @NotNull EditorBuilder<T> from(@NotNull EditorPage.Builder<T> page) {
             EditorBuilder<T> builder = new EditorBuilder<>(page.initialSeed);
             builder.header = page.getHeader();
             builder.details = page.getDetails();
@@ -995,7 +995,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
             if (field.kind() instanceof FieldKind.Choice<?> choice && choice.choices().size() > SelectMenu.Option.MAX_ALLOWED) {
                 ConcurrentList<Choice<?>> cached = Concurrent.newList();
                 choice.choices().forEach(c -> cached.add((Choice<?>) c));
-                this.withInPageSession(new InPageEditSession(field.identifier(), 0, cached.toUnmodifiableList()));
+                this.withInPageSession(new InPageEditSession(field.identifier(), 0, cached.toUnmodifiable()));
                 this.markDirty();
                 return Mono.empty();
             }
@@ -1090,7 +1090,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
             return Optional.empty();
         }
 
-        /** A builder for {@link Builder builder-mode} editor pages. */
+        /** A builder for {@link EditorBuilder builder-mode} editor pages. */
         public static final class EditorBuilder<T> extends Page.Builder {
 
             @BuildFlag(nonNull = true)
@@ -1199,10 +1199,10 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
 
             /** {@inheritDoc} */
             @Override
-            public @NotNull Builder<T> build() {
+            public @NotNull EditorPage.Builder<T> build() {
                 Reflection.validateFlags(this);
 
-                ConcurrentList<BuilderField<T, ?>> fieldList = this.fields.toUnmodifiableList();
+                ConcurrentList<BuilderField<T, ?>> fieldList = this.fields.toUnmodifiable();
 
                 ItemHandler<BuilderField<T, ?>> items = ItemHandler.<BuilderField<T, ?>>builder()
                     .withItems(fieldList)
@@ -1214,7 +1214,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
                     .withTransformer(BuilderField::identifier)
                     .build();
 
-                return new Builder<>(
+                return new EditorPage.Builder<>(
                     this.seed,
                     this.optionBuilder.build(),
                     this.header,
@@ -1224,7 +1224,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
                     this.hideReadOnlyFields,
                     this.accent,
                     this.cancelButton,
-                    this.reactions.toUnmodifiableList(),
+                    this.reactions.toUnmodifiable(),
                     this.onSubmit,
                     this.confirmSubmit
                 );

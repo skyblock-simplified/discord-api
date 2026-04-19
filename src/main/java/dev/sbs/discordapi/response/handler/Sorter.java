@@ -334,7 +334,7 @@ public class Sorter<T> implements BiFunction<ConcurrentList<T>, Boolean, Concurr
                 this.label.orElseThrow(),
                 this.description,
                 this.enabled,
-                this.comparators.toUnmodifiableMap(),
+                this.comparators.toUnmodifiable(),
                 this.order
             );
         }

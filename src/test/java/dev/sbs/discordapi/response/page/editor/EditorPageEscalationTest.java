@@ -39,7 +39,7 @@ class EditorPageEscalationTest {
         return AggregateField.<Record, String>builder()
             .withIdentifier("big")
             .withLabel("Big List")
-            .withKind(new FieldKind.Choice<>(choices.toUnmodifiableList(), false))
+            .withKind(new FieldKind.Choice<>(choices.toUnmodifiable(), false))
             .withGetter(Record::picked)
             .withLiveSaver((record, edit) -> Mono.just(record.withPicked(edit.newValue())))
             .build();
@@ -107,7 +107,7 @@ class EditorPageEscalationTest {
 
         ConcurrentList<Choice<?>> snap = Concurrent.newList();
         ((FieldKind.Choice<?>) field.kind()).choices().forEach(c -> snap.add(c));
-        page.withInPageSession(new InPageEditSession(field.identifier(), 1, snap.toUnmodifiableList()));
+        page.withInPageSession(new InPageEditSession(field.identifier(), 1, snap.toUnmodifiable()));
 
         assertTrue(page.getInPageSession().isPresent(), "precondition: session active");
 

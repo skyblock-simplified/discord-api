@@ -94,7 +94,7 @@ public class HistoryHandler<P, I> implements OutputHandler<P>, Paging<P> {
     }
 
     public @NotNull ConcurrentList<P> getHistory() {
-        return this.history.toUnmodifiableList();
+        return this.history.toUnmodifiable();
     }
 
     public @NotNull ConcurrentList<I> getIdentifierHistory() {
@@ -281,7 +281,7 @@ public class HistoryHandler<P, I> implements OutputHandler<P>, Paging<P> {
 
         public @NotNull HistoryHandler<P, I> build() {
             return new HistoryHandler<>(
-                this.pages.toUnmodifiableList(),
+                this.pages.toUnmodifiable(),
                 this.matcher,
                 this.transformer
             );

@@ -100,7 +100,7 @@ public final class PersistentComponentHandler extends DiscordReference {
      * @param loadedCommands command instances loaded by {@link CommandHandler}
      * @param listenerClasses persistent listener subclasses discovered via classpath scan
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings("rawtypes")
     public PersistentComponentHandler(
         @NotNull DiscordBot discordBot,
         @NotNull ConcurrentList<DiscordCommand> loadedCommands,

@@ -7,7 +7,6 @@ import dev.sbs.discordapi.component.media.MediaData;
 import dev.sbs.discordapi.component.scope.TopLevelMessageComponent;
 import dev.sbs.discordapi.context.scope.MessageContext;
 import dev.sbs.discordapi.response.embed.Embed;
-import dev.sbs.discordapi.response.embed.Field;
 import dev.sbs.discordapi.response.handler.HistoryHandler;
 import dev.sbs.discordapi.response.handler.PaginationHandler;
 import dev.sbs.discordapi.response.page.Page;
@@ -746,7 +745,7 @@ public final class Response {
                 this.createInteraction.orElse(__ -> Mono.empty()),
                 this.renderingPagingComponents,
                 HistoryHandler.<Page, String>builder()
-                    .withPages(this.pages.toUnmodifiableList())
+                    .withPages(this.pages.toUnmodifiable())
                     .withMatcher((page, identifier) -> page.getOption().getValue().equals(identifier))
                     .withTransformer(page -> page.getOption().getValue())
                     .build(),
