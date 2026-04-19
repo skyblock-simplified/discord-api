@@ -117,21 +117,6 @@ public interface ExceptionContext<T extends Event> extends EventContext<T> {
     }
 
     /**
-     * Creates a new {@link ExceptionContext} wrapping the given {@link EventContext} with
-     * the specified title.
-     *
-     * @param <T> the Discord4J event type
-     * @param discordBot the bot instance
-     * @param context the event context in which the exception occurred
-     * @param throwable the caught exception
-     * @param title a human-readable title for the exception category
-     * @return a new exception context
-     */
-    static <T extends Event> @NotNull ExceptionContext<T> of(@NotNull DiscordBot discordBot, @NotNull EventContext<T> context, @NotNull Throwable throwable, @NotNull String title) {
-        return new Impl<>(discordBot, context, throwable, title);
-    }
-
-    /**
      * Creates a new {@link ExceptionContext} wrapping a raw Discord4J {@link Event}
      * that was not yet bound to an {@link EventContext}. Extracts user, channel, and
      * guild information on a best-effort basis from the raw event.
@@ -144,7 +129,22 @@ public interface ExceptionContext<T extends Event> extends EventContext<T> {
      * @return a new exception context
      */
     static <T extends Event> @NotNull ExceptionContext<T> of(@NotNull DiscordBot discordBot, @NotNull T event, @NotNull Throwable throwable, @NotNull String title) {
-        return new ListenerImpl<>(discordBot, event, throwable, title);
+        return of(discordBot, RawEventContext.of(discordBot, event), throwable, title);
+    }
+
+    /**
+     * Creates a new {@link ExceptionContext} wrapping the given {@link EventContext} with
+     * the specified title.
+     *
+     * @param <T> the Discord4J event type
+     * @param discordBot the bot instance
+     * @param context the event context in which the exception occurred
+     * @param throwable the caught exception
+     * @param title a human-readable title for the exception category
+     * @return a new exception context
+     */
+    static <T extends Event> @NotNull ExceptionContext<T> of(@NotNull DiscordBot discordBot, @NotNull EventContext<T> context, @NotNull Throwable throwable, @NotNull String title) {
+        return new Impl<>(discordBot, context, throwable, title);
     }
 
     /**
@@ -185,16 +185,22 @@ public interface ExceptionContext<T extends Event> extends EventContext<T> {
     }
 
     /**
-     * Implementation of {@link ExceptionContext} for exceptions thrown from listener
-     * pipelines before an {@link EventContext} has been constructed. Extracts user,
-     * channel, and guild metadata from the raw Discord4J {@link Event} on a best-effort
-     * basis.
+     * Synthesizes an {@link EventContext} from a raw Discord4J {@link Event} on a
+     * best-effort basis when no listener has yet constructed a real context. Used by
+     * the {@link #of(DiscordBot, Event, Throwable, String)} factory to give
+     * {@link Impl} a non-self-referential wrapped context, so the delegating defaults
+     * on {@link ExceptionContext} resolve cleanly without recursion.
+     *
+     * <p>
+     * Extracts channel, guild, and user metadata via pattern matching on the event
+     * type. Unrecognized events fall back to a dummy channel snowflake, an empty
+     * guild, and the bot's own self user.
      *
      * @param <T> the Discord4J event type
      */
     @Getter
-    @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-    class ListenerImpl<T extends Event> implements ExceptionContext<T> {
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    final class RawEventContext<T extends Event> implements EventContext<T> {
 
         /**
          * The bot instance that received this event.
@@ -207,29 +213,13 @@ public interface ExceptionContext<T extends Event> extends EventContext<T> {
         private final @NotNull T event;
 
         /**
-         * A randomly generated response identifier for this exception context.
+         * A randomly generated response identifier for this synthesized context.
          */
         private final @NotNull UUID responseId = UUID.randomUUID();
 
-        /**
-         * The caught exception.
-         */
-        private final @NotNull Throwable exception;
-
-        /**
-         * A human-readable title for the exception category.
-         */
-        private final @NotNull String title;
-
         /** {@inheritDoc} */
         @Override
-        public @NotNull EventContext<T> getEventContext() {
-            return this;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public Mono<MessageChannel> getChannel() {
+        public @NotNull Mono<MessageChannel> getChannel() {
             return this.getDiscordBot()
                 .getGateway()
                 .getChannelById(this.getChannelId())
@@ -250,7 +240,7 @@ public interface ExceptionContext<T extends Event> extends EventContext<T> {
 
         /** {@inheritDoc} */
         @Override
-        public Mono<Guild> getGuild() {
+        public @NotNull Mono<Guild> getGuild() {
             return Mono.justOrEmpty(this.getGuildId()).flatMap(id -> this.discordBot.getGateway().getGuildById(id));
         }
 
@@ -304,10 +294,22 @@ public interface ExceptionContext<T extends Event> extends EventContext<T> {
 
         /** {@inheritDoc} */
         @Override
-        public Mono<Void> reply(@NotNull Response response) {
+        public @NotNull Mono<Void> reply(@NotNull Response response) {
             return this.getChannel()
                 .flatMap(response::getD4jCreateMono)
                 .then();
+        }
+
+        /**
+         * Creates a new {@code RawEventContext} for the given bot and raw Discord4J event.
+         *
+         * @param <T> the Discord4J event type
+         * @param discordBot the bot instance
+         * @param event the raw Discord4J event
+         * @return a new synthesized context
+         */
+        static <T extends Event> @NotNull RawEventContext<T> of(@NotNull DiscordBot discordBot, @NotNull T event) {
+            return new RawEventContext<>(discordBot, event);
         }
 
     }
