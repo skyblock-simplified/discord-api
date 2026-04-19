@@ -11,24 +11,24 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Function;
 
 /**
  * Context for select menu component interactions, extending {@link ActionComponentContext}
- * with access to the interacted {@link SelectMenu}, its selected options, and a convenience
- * method for modifying the select menu via its builder.
+ * with access to the interacted {@link SelectMenu} and its raw selected wire values.
  *
  * <p>
  * Instances are created via the {@link #of} factory method when a
- * {@link SelectMenuInteractionEvent} is dispatched. Individual selected options can be
- * processed through {@link OptionContext}.
+ * {@link SelectMenuInteractionEvent} is dispatched. The framework calls
+ * {@link SelectMenu#updateSelected(java.util.List)} on the component before the handler
+ * runs, so callers may access {@link #getSelectedValues()} for the wire-agnostic view or
+ * pattern-match {@link #getComponent()} against {@link SelectMenu.StringMenu} or
+ * {@link SelectMenu.EntityMenu} for variant-specific state.
  *
+ * @see SelectMenu
  * @see OptionContext
- * @see SelectMenu.Option
  */
 public interface SelectMenuContext extends ActionComponentContext {
 
@@ -40,20 +40,17 @@ public interface SelectMenuContext extends ActionComponentContext {
     @Override
     @NotNull SelectMenu getComponent();
 
-    /** The list of currently selected options from the select menu. */
-    default @NotNull ConcurrentList<SelectMenu.Option> getSelected() {
-        return this.getComponent().getSelected();
-    }
-
     /**
-     * Modifies the select menu by applying a transformation function to its builder,
-     * then replaces the select menu in the current response page.
+     * The raw wire values from the interaction, as delivered by Discord.
      *
-     * @param selectMenuBuilder a function that transforms the select menu builder
-     * @return a mono completing when the select menu has been updated in the page
+     * <p>
+     * For a {@link SelectMenu.StringMenu} these are option values; for a
+     * {@link SelectMenu.EntityMenu} they are stringified snowflake ids.
+     *
+     * @return the selected wire values
      */
-    default Mono<Void> modify(@NotNull Function<SelectMenu.Builder, SelectMenu.Builder> selectMenuBuilder) {
-        return this.modify(selectMenuBuilder.apply(this.getComponent().mutate()).build());
+    default @NotNull ConcurrentList<String> getSelectedValues() {
+        return this.getComponent().getSelectedValues();
     }
 
     /**

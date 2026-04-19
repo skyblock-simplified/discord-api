@@ -161,10 +161,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
         ConcurrentList<LayoutComponent> output = Concurrent.newList();
         output.add(container.build());
 
-        this.inPageSession.ifPresent(session -> {
-            this.buildEscalationRows(session).forEach(output::add);
-        });
-
+        this.inPageSession.ifPresent(session -> output.addAll(this.buildEscalationRows(session)));
         this.buildActionRow().ifPresent(output::add);
         this.cachedComponents = output.toUnmodifiable();
         return this.cachedComponents;
@@ -205,11 +202,11 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
         ConcurrentList<LayoutComponent> rows = Concurrent.newList();
         int size = session.cachedChoices().size();
         int totalSlices = Math.max(1, (int) Math.ceil(size / 25.0));
-        int slice = Math.max(0, Math.min(session.sliceIndex(), totalSlices - 1));
+        int slice = Math.clamp(session.sliceIndex(), 0, totalSlices - 1);
         int from = slice * 25;
         int to = Math.min(from + 25, size);
 
-        SelectMenu.Builder menuBuilder = SelectMenu.builder()
+        SelectMenu.StringMenu.Builder menuBuilder = SelectMenu.builder()
             .withIdentifier(this.escalationCustomId(session.fieldId(), "select"))
             .withPlaceholder(String.format("Page %d of %d - pick a value", slice + 1, totalSlices))
             .onInteract(ctx -> this.handleEscalationSelect(ctx, session.fieldId()));
@@ -246,7 +243,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
             .withStyle(Button.Style.DANGER)
             .withLabel("Cancel")
             .withIdentifier(this.escalationCustomId(session.fieldId(), "cancel"))
-            .onInteract(ctx -> this.handleEscalationCancel(ctx))
+            .onInteract(this::handleEscalationCancel)
             .build();
 
         rows.add(ActionRow.of(prev, next, cancel));
@@ -438,7 +435,6 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
          * @param <T> the domain type
          * @return a pre-filled builder
          */
-        @SuppressWarnings("unchecked")
         public static <T> @NotNull AggregateBuilder<T> from(@NotNull Aggregate<T> page) {
             AggregateBuilder<T> builder = new AggregateBuilder<>(page.initialValue);
             builder.header = page.getHeader();
@@ -490,7 +486,6 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
             return this.renderFieldDisplayTyped(field);
         }
 
-        @SuppressWarnings("unchecked")
         private <V> @NotNull String renderFieldDisplayTyped(@NotNull EditableField<T, V> field) {
             AggregateField<T, V> aggregate = (AggregateField<T, V>) field;
             V value = aggregate.getter().apply(this.currentValue);
@@ -543,7 +538,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
                 .withStyle(Button.Style.SECONDARY)
                 .withLabel("Go back")
                 .withIdentifier("editor:%s:cancel-delete", this.option.getValue())
-                .onInteract(ctx -> this.handleGoBack(ctx))
+                .onInteract(this::handleGoBack)
                 .build();
 
             return ActionRow.of(confirm, back);
@@ -562,7 +557,6 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
             return this.presentOrEscalate(context, field);
         }
 
-        @SuppressWarnings("unchecked")
         private <V> @NotNull Mono<Void> presentOrEscalate(@NotNull ButtonContext context, @NotNull AggregateField<T, V> field) {
             V current = field.getter().apply(this.currentValue);
             Optional<V> currentOpt = Optional.ofNullable(current);
@@ -630,11 +624,11 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
         @Override
         protected @NotNull Mono<Void> handleEscalationSelect(@NotNull SelectMenuContext context, @NotNull String fieldId) {
             Optional<AggregateField<T, ?>> lookup = this.findField(fieldId);
-            if (lookup.isEmpty() || context.getSelected().isEmpty())
+            if (lookup.isEmpty() || context.getSelectedValues().isEmpty())
                 return Mono.empty();
 
             AggregateField<T, ?> field = lookup.get();
-            String pickedLabel = context.getSelected().getFirst().getValue();
+            String pickedLabel = context.getSelectedValues().getFirst();
             return this.applyEscalationPick(context, field, pickedLabel);
         }
 
@@ -866,7 +860,6 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
          * @param <T> the builder seed type
          * @return a pre-filled builder
          */
-        @SuppressWarnings("unchecked")
         public static <T> @NotNull EditorBuilder<T> from(@NotNull EditorPage.Builder<T> page) {
             EditorBuilder<T> builder = new EditorBuilder<>(page.initialSeed);
             builder.header = page.getHeader();
@@ -918,7 +911,6 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
             return this.renderFieldDisplayTyped(field);
         }
 
-        @SuppressWarnings("unchecked")
         private <V> @NotNull String renderFieldDisplayTyped(@NotNull EditableField<T, V> field) {
             BuilderField<T, V> builderField = (BuilderField<T, V>) field;
             V value = builderField.getter().apply(this.seed);
@@ -987,7 +979,6 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
             return this.presentOrEscalate(context, field);
         }
 
-        @SuppressWarnings("unchecked")
         private <V> @NotNull Mono<Void> presentOrEscalate(@NotNull ButtonContext context, @NotNull BuilderField<T, V> field) {
             V current = field.getter().apply(this.seed);
             Optional<V> currentOpt = Optional.ofNullable(current);
@@ -1029,11 +1020,11 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
         @Override
         protected @NotNull Mono<Void> handleEscalationSelect(@NotNull SelectMenuContext context, @NotNull String fieldId) {
             Optional<BuilderField<T, ?>> lookup = this.findField(fieldId);
-            if (lookup.isEmpty() || context.getSelected().isEmpty())
+            if (lookup.isEmpty() || context.getSelectedValues().isEmpty())
                 return Mono.empty();
 
             BuilderField<T, ?> field = lookup.get();
-            String pickedLabel = context.getSelected().getFirst().getValue();
+            String pickedLabel = context.getSelectedValues().getFirst();
             return this.applyEscalationPick(context, field, pickedLabel);
         }
 
@@ -1249,7 +1240,7 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
         Modal modal = context.getComponent();
 
         return switch (kind) {
-            case FieldKind.Text text -> modal.getComponents()
+            case FieldKind.Text ignored -> modal.getComponents()
                 .stream()
                 .filter(Label.class::isInstance)
                 .map(Label.class::cast)
@@ -1269,39 +1260,35 @@ public abstract sealed class EditorPage<T> implements Page permits EditorPage.Ag
                 .map(TextInput.class::cast)
                 .findFirst()
                 .flatMap(TextInput::getValue)
-                .flatMap(numeric.parser()::apply);
+                .flatMap(numeric.parser());
 
-            case FieldKind.Bool bool -> {
-                Optional<V> picked = modal.getComponents()
-                    .stream()
-                    .filter(Label.class::isInstance)
-                    .map(Label.class::cast)
-                    .map(Label::getComponent)
-                    .filter(RadioGroup.class::isInstance)
-                    .map(RadioGroup.class::cast)
-                    .findFirst()
-                    .flatMap(rg -> rg.getSelected().map(opt -> (V) Boolean.valueOf("true".equals(opt.getValue()))));
-                yield picked;
-            }
+            case FieldKind.Bool ignored2 -> modal.getComponents()
+                .stream()
+                .filter(Label.class::isInstance)
+                .map(Label.class::cast)
+                .map(Label::getComponent)
+                .filter(RadioGroup.class::isInstance)
+                .map(RadioGroup.class::cast)
+                .findFirst()
+                .flatMap(rg -> rg.getSelected()
+                    .map(opt -> (V) Boolean.valueOf("true".equals(opt.getValue())))
+                );
 
-            case FieldKind.Choice<?> choice -> {
-                Optional<String> pickedLabel = modal.getComponents()
-                    .stream()
-                    .filter(Label.class::isInstance)
-                    .map(Label.class::cast)
-                    .map(Label::getComponent)
-                    .filter(SelectMenu.class::isInstance)
-                    .map(SelectMenu.class::cast)
-                    .findFirst()
-                    .flatMap(menu -> menu.getSelected().stream().findFirst().map(SelectMenu.Option::getValue));
-
-                yield pickedLabel.flatMap(label -> choice.choices()
+            case FieldKind.Choice<?> choice -> modal.getComponents()
+                .stream()
+                .filter(Label.class::isInstance)
+                .map(Label.class::cast)
+                .map(Label::getComponent)
+                .filter(SelectMenu.StringMenu.class::isInstance)
+                .map(SelectMenu.StringMenu.class::cast)
+                .findFirst()
+                .flatMap(menu -> menu.getSelected().stream().findFirst().map(SelectMenu.Option::getValue))
+                .flatMap(label -> choice.choices()
                     .stream()
                     .filter(c -> c.label().equals(label))
                     .findFirst()
                     .map(c -> (V) c.value())
                 );
-            }
         };
     }
 

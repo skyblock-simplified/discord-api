@@ -100,7 +100,7 @@ public final class FieldModalFactory {
         if (choice.choices().size() > SelectMenu.Option.MAX_ALLOWED)
             return Optional.empty();
 
-        SelectMenu.Builder select = SelectMenu.builder()
+        SelectMenu.StringMenu.Builder select = SelectMenu.builder()
             .withPlaceholder("Pick a value");
 
         for (Choice<C> entry : choice.choices()) {

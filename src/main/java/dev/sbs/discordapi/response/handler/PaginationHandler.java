@@ -178,7 +178,7 @@ public class PaginationHandler extends DiscordReference {
      */
     public static @NotNull Function<SelectMenuContext, Mono<Void>> pageSelectionInteraction() {
         return context -> context.consumeResponse(response -> {
-            String selectedValue = context.getSelected().getFirst().getValue();
+            String selectedValue = context.getSelectedValues().getFirst();
             response.getHistoryHandler().gotoTopLevelPage(selectedValue);
         });
     }
@@ -190,7 +190,7 @@ public class PaginationHandler extends DiscordReference {
      */
     public static @NotNull Function<SelectMenuContext, Mono<Void>> subpageSelectionInteraction() {
         return context -> context.consumeResponse(response -> {
-            String selectedValue = context.getSelected().getFirst().getValue();
+            String selectedValue = context.getSelectedValues().getFirst();
 
             if (selectedValue.equals("BACK"))
                 response.getHistoryHandler().gotoParentPage();
@@ -421,7 +421,7 @@ public class PaginationHandler extends DiscordReference {
             HistoryHandler<?, String> pageHistory = currentPage.getHistoryHandler();
 
             if (pageHistory.getItems().notEmpty() || historyHandler.hasPageHistory()) {
-                SelectMenu.Builder subPageBuilder = SelectMenu.builder()
+                SelectMenu.StringMenu.Builder subPageBuilder = SelectMenu.builder()
                     .withPageType(SelectMenu.PageType.SUBPAGE_SELECTOR)
                     .withPlaceholder("Select a subpage.")
                     .withPlaceholderShowingSelectedOption()
